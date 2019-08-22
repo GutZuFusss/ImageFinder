@@ -31,7 +31,7 @@ public class SQLWrapper {
 		try {
 			resultOfQuery = statement.executeQuery(query);
 		} catch (SQLException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage(), true);
+			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 
 		return resultOfQuery;
@@ -42,7 +42,7 @@ public class SQLWrapper {
 		try {
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage(), true);
+			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 	}
 	
@@ -56,12 +56,12 @@ public class SQLWrapper {
 				if(db.createNewFile()) {
 					manager.getLogger().log(Logger.LVL_INFO, "Database has been created. Attempting to create tables...");
 				} else {
-					manager.getLogger().log(Logger.LVL_FATAL, "Could not open nor create database!!! Shutting down.", true);
+					manager.getLogger().log(Logger.LVL_FATAL, "Could not open nor create database!!! Shutting down.");
 					return false;
 				}
 			}
 		} catch(IOException e) {
-			manager.getLogger().log(Logger.LVL_FATAL, "I/O error occured while creating database: " + e.getMessage(), true);
+			manager.getLogger().log(Logger.LVL_FATAL, "I/O error occured while creating database: " + e.getMessage());
 			return false;
 		}
 
@@ -87,7 +87,7 @@ public class SQLWrapper {
 			statement.close();
 			connection.close();
 		} catch(SQLException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage(), true);
+			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 		
 		statement = null;
@@ -113,16 +113,16 @@ public class SQLWrapper {
 				connection = createConnection();
 			} catch (ClassNotFoundException | SQLException e) {
 				if(e instanceof ClassNotFoundException)
-					manager.getLogger().log(Logger.LVL_ERROR, "Error while establishing a SQL conntection: " + e.getMessage(), true);
+					manager.getLogger().log(Logger.LVL_ERROR, "Error while establishing a SQL conntection: " + e.getMessage());
 				else if(e instanceof SQLException)
-					manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage(), true);
+					manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 			}
 		}
 		if(isStatementOpened()) {	
 			try {
 				statement = createStatement(connection);
 			} catch (SQLException e) {
-				manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage(), true);
+				manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 			}
 		}
 	}

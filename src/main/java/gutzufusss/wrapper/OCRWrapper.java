@@ -30,7 +30,7 @@ public class OCRWrapper {
 		try {
 			img = ImageIO.read(f);
 		} catch (IOException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage(), true);
+			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage());
 		}
 
 		return img;
@@ -60,7 +60,7 @@ public class OCRWrapper {
 				getTextFromImg(child.getAbsolutePath(), handle);
 		}
 		else {
-			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: The directory seems to be empty!", true);
+			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: The directory seems to be empty!");
 		}
 		
 		manager.getLogger().log(Logger.LVL_INFO, "Done scanning the directory '" + path + "'.");

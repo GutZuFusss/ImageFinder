@@ -34,7 +34,7 @@ public class ImageManipulation {
 		try {
 			pix = LeptUtils.convertImageToPix(img);
 		} catch (IOException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage(), true);
+			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage());
 		}
 
 		return pix;

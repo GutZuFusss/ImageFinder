@@ -10,7 +10,8 @@ import org.apache.commons.io.FileUtils;
 
 public class Logger {
 	private final String LOG_PATH = "logs/" + getTimestamp(true) + ".log";
-
+	
+	// TODO: enum
 	public static final int LVL_INFO = 1;
 	public static final int LVL_WARN = 2;
 	public static final int LVL_ERROR = 4;
@@ -33,7 +34,7 @@ public class Logger {
 			}
 		} catch (IOException e) {
 			if(e instanceof IOException) {
-				log(LVL_FATAL, "Something went horribly wrong (I/O).", true);
+				log(LVL_FATAL, "Something went horribly wrong (I/O).");
 				e.printStackTrace(); // kinda nonsense to log something here...
 			}
 		}
