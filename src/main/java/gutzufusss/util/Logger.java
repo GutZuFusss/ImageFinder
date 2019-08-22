@@ -39,23 +39,22 @@ public class Logger {
 		}
 	}
 
-	public void log(int lvl, String msg, boolean printCallerMethod) {
-		int stackIndex = printCallerMethod ? 2 : 3; // if printCallerMethod == false we are likely coming from the overloaded function (will be changed once i have a better idea)
-		String calledFrom = Thread.currentThread().getStackTrace()[stackIndex].getClassName();
+	public void log(int lvl, String msg) {
+		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack
 
 		int numDots = (int)calledFrom.chars().filter(ch -> ch == '.').count(); // unnecessary but i use lambdas way to infrequent + i like spaghetti code
 		if(numDots != 0)
 			calledFrom = calledFrom.split("\\.")[numDots]; // don't display the package path to the class... noone cares
 
-		if(printCallerMethod)
-			calledFrom += "::" + Thread.currentThread().getStackTrace()[stackIndex].getMethodName();
+		if(lvl >= LVL_ERROR)
+			calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
 
 		String logMsg = "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
 		try {
-			FileUtils.writeStringToFile(logFile, logMsg, "UTF-8");
+			FileUtils.writeStringToFile(logFile, logMsg, "UTF-8", true);
 		} catch (IOException e) {
-			log(LVL_ERROR, "We seem to have some kind of log-ception here.", true);
+			log(LVL_ERROR, "We seem to have some kind of log-ception here.");
 			return;
 		}
 		
@@ -63,8 +62,6 @@ public class Logger {
 		
 		// TODO: also print to gui once there is one
 	}
-
-	public void log(int lvl, String msg) { log(lvl, msg, false); }
 
 	private String getTimestamp(boolean logger) {
 		DateTimeFormatter formatter = null;
