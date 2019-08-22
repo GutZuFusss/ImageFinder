@@ -2,8 +2,9 @@
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		OCRWrapper ow = new OCRWrapper();
+		ow.scanDirectory("test_images");
+		System.out.println("RESULT: " + ow.test);
 	}
 
 }

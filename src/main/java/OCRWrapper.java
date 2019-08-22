@@ -24,12 +24,6 @@ public class OCRWrapper {
 		imgManipulator = new ImageManipulation();
 	}
 
-	public static void main(String[] args) {
-		OCRWrapper ow = new OCRWrapper();
-		ow.scanDirectory("test_images");
-		System.out.println("RESULT: " + ow.test);
-	}
-
 	private BufferedImage openImg(String path) {
 		File f = new File(path);
 		BufferedImage img = null;
