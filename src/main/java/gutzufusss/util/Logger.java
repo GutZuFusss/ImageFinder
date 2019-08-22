@@ -36,8 +36,9 @@ public class Logger {
 
 	public void log(int lvl, String msg, boolean printCallerMethod) {
 		int stackIndex = printCallerMethod ? 1 : 2; // if printCallerMethod == false we are likely coming from the overloaded function
-		String calledFrom = Thread.currentThread().getStackTrace()[stackIndex].getClassName()
-				+ (printCallerMethod ? "::" + Thread.currentThread().getStackTrace()[1].getMethodName() : "");
+		String calledFrom = Thread.currentThread().getStackTrace()[stackIndex].getClassName();
+		if(printCallerMethod)
+			calledFrom += "::" + Thread.currentThread().getStackTrace()[1].getMethodName();
 
 	}
 	
