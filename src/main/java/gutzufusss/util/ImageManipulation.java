@@ -17,10 +17,10 @@ import net.sourceforge.lept4j.util.LeptUtils;
 import net.sourceforge.tess4j.util.ImageHelper;
 
 public class ImageManipulation {
-	private Main manager;
+	private Main controller;
 	
-	public ImageManipulation(Main manager) {
-		this.manager = manager;
+	public ImageManipulation(Main controller) {
+		this.controller = controller;
 		
 		// this is needed to use opencv (C:\Program Files\Java\jre1.8.0_221\bin)
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -33,7 +33,7 @@ public class ImageManipulation {
 		try {
 			pix = LeptUtils.convertImageToPix(img);
 		} catch (IOException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage());
+			controller.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage());
 		}
 
 		return pix;
