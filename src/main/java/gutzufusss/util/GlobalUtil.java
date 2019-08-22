@@ -6,10 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class GlobalUtil {
+	public static final int MAX_IMG_TEXT_LEN = 4096;
 
 	private GlobalUtil() { } // no object of diz class plz
 	
-	private String getTimestamp(boolean logger) {
+	public static String getTimestamp(boolean logger) {
 		DateTimeFormatter formatter = null;
 		if(logger)
 			formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH-mm-ss").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
@@ -19,5 +20,5 @@ public class GlobalUtil {
 		return formatter.format(Instant.now());
 	}
 
-	private String getTimestamp() { return getTimestamp(false); }
+	public static String getTimestamp() { return getTimestamp(false); }
 }

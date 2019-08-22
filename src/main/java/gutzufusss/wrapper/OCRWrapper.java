@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import gutzufusss.Main;
+import gutzufusss.util.GlobalUtil;
 import gutzufusss.util.Logger;
 import net.sourceforge.lept4j.*;
 import net.sourceforge.lept4j.util.LeptUtils;
@@ -95,9 +96,9 @@ public class OCRWrapper {
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
 		String result = TessAPI1.TessBaseAPIGetUTF8Text(handle).getString(0);
 		result = result.replaceAll("\\r\\n|\\r|\\n", " "); // screw linebreaks, srsly
-		if(result.length() > SQLWrapper.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not too sure anymore
-			result = result.substring(0, SQLWrapper.MAX_IMG_TEXT_LEN);
-			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + SQLWrapper.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
+		if(result.length() > GlobalUtil.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not too sure anymore
+			result = result.substring(0, GlobalUtil.MAX_IMG_TEXT_LEN);
+			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + GlobalUtil.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
 		}
 		SQLWrapper.execSQL("INSERT INTO " + SQLWrapper.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" +
 					"'" + fileInfo.getName()			+ "', " +
