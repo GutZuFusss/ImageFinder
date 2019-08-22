@@ -57,3 +57,4 @@ local.properties
 # My stuff---
 *.dll
 test_images/
+db/
