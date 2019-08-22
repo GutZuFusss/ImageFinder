@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -19,11 +20,25 @@ public class SQLWrapper {
 		if(isConnectionOpened()) {
 			connection = createConnection();
 		}
-		if(isStatementOpened() )  {	
+		if(isStatementOpened() ) {	
 			statement = createStatement(connection);
 		}
 		
 		statement.executeUpdate(sql);
+	}
+	
+	public static ResultSet execSQLFetch(String query) throws ClassNotFoundException, SQLException {
+		// check wether our connections are active already ; TODO: code dublication
+		if(isConnectionOpened()) {
+			connection = createConnection();
+		}
+		if(isStatementOpened()) {	
+			statement = createStatement(connection);
+		}
+
+		ResultSet resultOfQuery = statement.executeQuery(query);
+
+		return resultOfQuery;
 	}
 	
 	// START_MISC_FUNCTIONS
