@@ -16,7 +16,7 @@ public class SQLWrapper {
 	private SQLWrapper() { }
 
 	public static ResultSet execSQL(String query) {
-		createConStateIfNeeded();
+		createConAndStateIfNeeded();
 		ResultSet resultOfQuery = null;
 		try {
 			resultOfQuery = statement.executeQuery(query);
@@ -40,7 +40,7 @@ public class SQLWrapper {
 		return statement;
 	}
 
-	private static void createConStateIfNeeded() {
+	private static void createConAndStateIfNeeded() {
 		// check wether our connection & statement are active already
 		if(isConnectionOpened()) {
 			try {
