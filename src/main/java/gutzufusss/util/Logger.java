@@ -64,18 +64,6 @@ public class Logger {
 		// TODO: also print to gui once there is one
 	}
 
-	private String getTimestamp(boolean logger) {
-		DateTimeFormatter formatter = null;
-		if(logger)
-			formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH-mm-ss").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
-		else
-			formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
-
-		return formatter.format(Instant.now());
-	}
-
-	private String getTimestamp() { return getTimestamp(false); }
-
 	private String getErrLvlStrin(int lvl) {
 		switch(lvl){
 		case LVL_INFO:
