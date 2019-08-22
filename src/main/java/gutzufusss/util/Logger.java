@@ -1,5 +1,6 @@
 package gutzufusss.util;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.time.*;
@@ -59,7 +60,7 @@ public class Logger {
 		}
 
 		System.out.println(logMsg); // TODO: only do this in some kind of debugging mode
-		
+
 		// TODO: also print to gui once there is one
 	}
 

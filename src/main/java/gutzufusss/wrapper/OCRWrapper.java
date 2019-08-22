@@ -80,16 +80,16 @@ public class OCRWrapper {
 //		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
 //		processingImg = manager.getIMGManipulator().changeContrast(processingImg, 0.1f);
 //		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
-		
+
 		// finalize the image
 		Pix pix = controller.getIMGManipulator().img2Pix(processingImg);
 		pix.xres = processingImg.getHeight(); // converting to pix somehow breaks the resolution
 		pix.yres = processingImg.getWidth();
 
 		TessAPI1.TessBaseAPISetImage2(handle, pix); // hand over the processed image to the api
-		
+
 		LeptUtils.dispose(pix); // clean up
-		
+
 		// do some post processing &save result into the database
 		File fileInfo = new File(imgPath);
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
@@ -109,7 +109,7 @@ public class OCRWrapper {
 			controller.getLogger().log(Logger.LVL_WARN, "Processed '" + imgPath + 
 					"'. However, the confidence score was lower than " + CRITICAL_CONF + " (" + conf + 
 					") that's why you are seeing this warning.");
-		
+
 		controller.getLogger().log(Logger.LVL_INFO, "'" + imgPath + "' done, confidence was " + conf + ".");
 		controller.getLogger().log(Logger.LVL_INFO, "Result: " + result);
 
