@@ -9,7 +9,6 @@ import org.openimaj.image.FImage;
 import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.processing.edges.CannyEdgeDetector;
 import org.openimaj.image.processing.edges.StrokeWidthTransform;
-import org.openimaj.image.text.extraction.swt.SWTTextDetector;
 
 import net.sourceforge.lept4j.Pix;
 import net.sourceforge.lept4j.util.LeptUtils;
@@ -57,16 +56,18 @@ public class ImageManipulation {
 	}
 	// END_MISC_FUNCTIONS
 
-	// below are the functions that actually manipulate the image content itself
+
+	// below are the functions that actually manipulate the images content itself
+
 	public BufferedImage smoothImg(BufferedImage img) {
 		Mat imgMat = imgToMat(img);
 		Mat newMat = new Mat(imgMat.rows(), imgMat.cols(), imgMat.type());
-		Imgproc.bilateralFilter(imgMat, newMat, 24, 32.0, 8.0, 0); // TODO: make some of these configurable
+		Imgproc.bilateralFilter(imgMat, newMat, 24, 32.0, 8.0, 0);
 
 		return matToImg(newMat);
 	}
 	
-	public BufferedImage changeContrast(BufferedImage img, double offset) {
+	public BufferedImage changeContrast(BufferedImage img, float offset) {
 		Mat imgMat = imgToMat(img);
 		Mat newMat = new Mat(imgMat.rows(), imgMat.cols(), imgMat.type());
 		imgMat.convertTo(newMat, -1, 1 + offset, 0);

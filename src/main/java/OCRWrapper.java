@@ -73,7 +73,7 @@ public class OCRWrapper {
 		processingImg = manager.getIMGManipulator().addBorder(processingImg, 6);
 		//processingImg = manager.getIMGManipulator().performSWT(processingImg);
 //		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
-//		processingImg = manager.getIMGManipulator().changeContrast(processingImg, 0.1);
+//		processingImg = manager.getIMGManipulator().changeContrast(processingImg, 0.1f);
 //		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
 		
 		// finalize the image
