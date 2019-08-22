@@ -5,6 +5,8 @@ import java.sql.Statement;
 
 
 public class SQLWrapper {
+	private static final String DB_PATH = "db/img_finder_data.db";
+	
 	public static Connection connection = null;
 	public static Statement statement = null;
 
@@ -15,7 +17,7 @@ public class SQLWrapper {
 	// START_MISC_FUNCTIONS
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
-		return DriverManager.getConnection("jdbc:sqlite:db/img_finder_data.db");
+		return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
 	}
 	// END_MISC_FUNCTIONS
 }
