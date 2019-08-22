@@ -78,7 +78,7 @@ public class OCRWrapper {
 		
 		// finalize the image
 		Pix pix = manager.getIMGManipulator().img2Pix(processingImg);
-		pix.xres = processingImg.getHeight(); // converting to pix somehow breaks the resolution somehow
+		pix.xres = processingImg.getHeight(); // converting to pix somehow breaks the resolution
 		pix.yres = processingImg.getWidth();
 
 		TessAPI1.TessBaseAPISetImage2(handle, pix); // hand over the processed image to the api
