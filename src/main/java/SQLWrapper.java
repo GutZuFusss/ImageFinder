@@ -17,7 +17,7 @@ public class SQLWrapper {
 	// constructor is private to prevent instantiation because all methods in this class will be static anyways
 	private SQLWrapper() { }
 
-	public static ResultSet execSQL(String query) {
+	public static ResultSet execQuerry(String query) {
 		createConAndStateIfNeeded();
 		ResultSet resultOfQuery = null;
 		try {
@@ -27,6 +27,15 @@ public class SQLWrapper {
 		}
 
 		return resultOfQuery;
+	}
+
+	public static void execSQL(String sql) {
+		createConAndStateIfNeeded();
+		try {
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: another one
+		}
 	}
 
 	// START_MISC_FUNCTIONS
@@ -48,7 +57,7 @@ public class SQLWrapper {
 		}
 
 		// okay, we are now sure our database exists, lets check for the tables
-		if(execSQL("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_IMG + "';").next())
+		if(execQuerry("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_IMG + "';").next())
 			return true;
 
 		execSQL("CREATE TABLE " + TABLE_IMG + " " +
@@ -60,7 +69,7 @@ public class SQLWrapper {
 
 		return true;
 	}
-	
+
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
