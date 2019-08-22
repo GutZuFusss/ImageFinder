@@ -16,26 +16,12 @@ public class SQLWrapper {
 	private SQLWrapper() { }
 	
 	public static void execSQL(String sql) throws ClassNotFoundException, SQLException {
-		// check wether our connections are active already
-		if(isConnectionOpened()) {
-			connection = createConnection();
-		}
-		if(isStatementOpened() ) {	
-			statement = createStatement(connection);
-		}
-		
+		createConStateIfNeeded();
 		statement.executeUpdate(sql);
 	}
 	
 	public static ResultSet execSQLFetch(String query) throws ClassNotFoundException, SQLException {
-		// check wether our connections are active already ; TODO: code dublication
-		if(isConnectionOpened()) {
-			connection = createConnection();
-		}
-		if(isStatementOpened()) {	
-			statement = createStatement(connection);
-		}
-
+		createConStateIfNeeded();
 		ResultSet resultOfQuery = statement.executeQuery(query);
 
 		return resultOfQuery;
@@ -52,6 +38,16 @@ public class SQLWrapper {
 		statement.setQueryTimeout(QUERY_TIMEOUT);
 
 		return statement;
+	}
+	
+	private static void createConStateIfNeeded() throws ClassNotFoundException, SQLException {
+		// check wether our connection & statement are active already
+		if(isConnectionOpened()) {
+			connection = createConnection();
+		}
+		if(isStatementOpened()) {	
+			statement = createStatement(connection);
+		}
 	}
 	
 	private static boolean isConnectionOpened() { return connection == null; }
