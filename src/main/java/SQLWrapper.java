@@ -40,13 +40,21 @@ public class SQLWrapper {
 		return statement;
 	}
 	
-	private static void createConStateIfNeeded() throws ClassNotFoundException, SQLException {
+	private static void createConStateIfNeeded() {
 		// check wether our connection & statement are active already
 		if(isConnectionOpened()) {
-			connection = createConnection();
+			try {
+				connection = createConnection();
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace(); // TODO: log as always...
+			}
 		}
 		if(isStatementOpened()) {	
-			statement = createStatement(connection);
+			try {
+				statement = createStatement(connection);
+			} catch (SQLException e) {
+				e.printStackTrace(); // TODO: log as always...
+			}
 		}
 	}
 	
