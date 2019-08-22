@@ -52,7 +52,7 @@ public class Logger {
 		String logMsg = "{" + getErrLvlStrin(lvl) + "}" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
 		try {
-			FileUtils.writeStringToFile(logFile, logMsg, "UTF-8", true);
+			FileUtils.writeStringToFile(logFile, logMsg + "\n", "UTF-8", true);
 		} catch(IOException e) {
 			log(LVL_ERROR, "We seem to have some kind of log-ception here.");
 			return;

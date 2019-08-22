@@ -14,7 +14,7 @@ import net.sourceforge.tess4j.*;
 import net.sourceforge.tess4j.ITessAPI.TessBaseAPI;
 
 public class OCRWrapper {
-	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>'=%ß";
+	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>=%ß";
 	
 	private Main controller;
 	
@@ -97,10 +97,10 @@ public class OCRWrapper {
 			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + SQLWrapper.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
 		}
 		SQLWrapper.execSQL("INSERT INTO " + SQLWrapper.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" +
-							fileInfo.getName() + ", " +
-							fileInfo.getAbsolutePath() + ", " +
-							result + ", " +
-							conf + ");");
+					"'" + fileInfo.getName()			+ "', " +
+					"'" + fileInfo.getAbsolutePath()	+ "', " +
+					"'" + result						+ "', " +
+						  conf							+ ");");
 
 		if(conf < 50)
 			controller.getLogger().log(Logger.LVL_WARN, "Processed '" + imgPath + 
