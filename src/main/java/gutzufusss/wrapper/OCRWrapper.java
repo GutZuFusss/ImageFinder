@@ -16,6 +16,8 @@ import net.sourceforge.tess4j.ITessAPI.TessBaseAPI;
 public class OCRWrapper {
 	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>=%ß";
 	
+	private final int CRITICAL_CONF = 55;
+	
 	private Main controller;
 	
 	public OCRWrapper(Main controller) {
@@ -93,7 +95,7 @@ public class OCRWrapper {
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
 		String result = TessAPI1.TessBaseAPIGetUTF8Text(handle).getString(0);
 		result = result.replaceAll("\\r\\n|\\r|\\n", " "); // screw linebreaks, srsly
-		if(result.length() > SQLWrapper.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not sure anymore
+		if(result.length() > SQLWrapper.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not too sure anymore
 			result = result.substring(0, SQLWrapper.MAX_IMG_TEXT_LEN);
 			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + SQLWrapper.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
 		}
@@ -103,9 +105,9 @@ public class OCRWrapper {
 					"'" + result						+ "', " +
 						  conf							+ ");");
 
-		if(conf < 50)
+		if(conf < CRITICAL_CONF)
 			controller.getLogger().log(Logger.LVL_WARN, "Processed '" + imgPath + 
-					"'. However, the confidence score was lower than 50 (" + conf + 
+					"'. However, the confidence score was lower than " + CRITICAL_CONF + " (" + conf + 
 					") that's why you are seeing this warning.");
 		
 		controller.getLogger().log(Logger.LVL_INFO, "'" + imgPath + "' done, confidence was " + conf + ".");
