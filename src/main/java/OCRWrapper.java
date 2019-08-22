@@ -14,13 +14,9 @@ import net.sourceforge.tess4j.util.ImageHelper;
 
 public class OCRWrapper {
 	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>'=%ß";
-
-	public int test = 0;
-	
-	
 	
 	public OCRWrapper() {
-		imgManipulator = new ImageManipulation();
+		
 	}
 
 	private BufferedImage openImg(String path) {
@@ -89,7 +85,6 @@ public class OCRWrapper {
 		LeptUtils.dispose(pix); // clean up
 
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
-		test += conf;
 		String result = TessAPI1.TessBaseAPIGetUTF8Text(handle).getString(0);
 		System.out.println("conf: " + conf + "\n" + result); // in the future warn here if confidence is too low
 
