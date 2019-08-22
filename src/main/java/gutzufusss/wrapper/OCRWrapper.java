@@ -94,11 +94,14 @@ public class OCRWrapper {
 		File fileInfo = new File(imgPath);
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
 		String result = TessAPI1.TessBaseAPIGetUTF8Text(handle).getString(0);
-		String trimmedResult = result.substring(0, SQLWrapper.MAX_IMG_TEXT_LEN); // i don't think it's possible to overflow varchar anyways, but i am not sure anymore
+		if(result.length() > SQLWrapper.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not sure anymore
+			result = result.substring(0, SQLWrapper.MAX_IMG_TEXT_LEN);
+			manager.getLogger().log(Logger.LVL_WARN, "Result was longer than " + SQLWrapper.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
+		}
 		SQLWrapper.execSQL("INSERT INTO " + SQLWrapper.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" +
 							fileInfo.getName() + ", " +
 							fileInfo.getAbsolutePath() + ", " +
-							trimmedResult + ", " +
+							result + ", " +
 							conf + ");");
 
 		if(conf < 50)
