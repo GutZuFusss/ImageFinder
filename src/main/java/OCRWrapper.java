@@ -15,8 +15,10 @@ import net.sourceforge.tess4j.util.ImageHelper;
 public class OCRWrapper {
 	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>'=%ß";
 	
-	public OCRWrapper() {
-		
+	Main manager;
+	
+	public OCRWrapper(Main manager) {
+		this.manager = manager;
 	}
 
 	private BufferedImage openImg(String path) {

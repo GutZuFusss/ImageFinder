@@ -4,7 +4,7 @@ public class Main {
 	private ImageManipulation imgManipulator;
 	
 	public Main() {
-		ocrWrapper = new OCRWrapper();
+		ocrWrapper = new OCRWrapper(this);
 		imgManipulator = new ImageManipulation();
 		//ocrWrapper.scanDirectory("test_images");
 	}
