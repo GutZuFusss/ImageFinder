@@ -1,9 +1,11 @@
 
 public class Main {
 	private OCRWrapper ocrWrapper;
+	private ImageManipulation imgManipulator;
 	
 	public Main() {
 		ocrWrapper = new OCRWrapper();
+		imgManipulator = new ImageManipulation();
 		//ocrWrapper.scanDirectory("test_images");
 	}
 
@@ -12,4 +14,6 @@ public class Main {
 	}
 
 	public OCRWrapper getOCR() { return ocrWrapper; }
+	
+	public ImageManipulation getIMGManipulator() { return imgManipulator; }
 }
