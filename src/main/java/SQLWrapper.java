@@ -13,7 +13,18 @@ public class SQLWrapper {
 
 	// constructor is private to prevent instantiation because all methods in this class will be static anyways
 	private SQLWrapper() { }
-
+	
+	public static void execSQL(String sql) throws ClassNotFoundException, SQLException {
+		// check wether our connections are active already
+		if(isConnectionOpened()) {
+			connection = createConnection();
+		}
+		if(isStatementOpened() )  {	
+			statement = createStatement(connection);
+		}
+		
+		statement.executeUpdate(sql);
+	}
 	
 	// START_MISC_FUNCTIONS
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
