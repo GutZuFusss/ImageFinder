@@ -1,3 +1,5 @@
+package gutzufusss.wrapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -70,6 +72,18 @@ public class SQLWrapper {
 	}
 
 	// START_MISC_FUNCTIONS
+	public static void closeDB() {
+		try {
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: A N O T H E R    O N E
+		}
+		
+		statement = null;
+		connection = null;
+	}
+
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);

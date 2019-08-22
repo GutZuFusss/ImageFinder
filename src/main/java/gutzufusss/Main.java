@@ -1,4 +1,8 @@
+package gutzufusss;
 import java.sql.SQLException;
+
+import gutzufusss.wrapper.OCRWrapper;
+import gutzufusss.wrapper.SQLWrapper;
 
 public class Main {
 	private OCRWrapper ocrWrapper;

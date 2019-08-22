@@ -1,3 +1,5 @@
+package gutzufusss.wrapper;
+
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import gutzufusss.Main;
 import net.sourceforge.lept4j.*;
 import net.sourceforge.lept4j.util.LeptUtils;
 import net.sourceforge.tess4j.*;
