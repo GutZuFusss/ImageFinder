@@ -23,6 +23,8 @@ public class Main {
 		imgManipulator = new ImageManipulation();
 		logger = new Logger();
 		
+		getLogger().log(Logger.LVL_INFO, "ImageFinder initialized successfully!", true);
+		
 		//ocrWrapper.scanDirectory("test_images");
 	}
 
