@@ -28,14 +28,15 @@ public class Logger {
 		try {
 			if(!logFile.exists()) {
 				if(logFile.createNewFile()) {
-					log(LVL_INFO, "Log file has been created.");
+					log(LVL_INFO, "Log file was created.");
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace(); // kinda nonsense to log something here...
+			if(e instanceof IOException) {
+				log(LVL_FATAL, "Something went horribly wrong (I/O).", true);
+				e.printStackTrace(); // kinda nonsense to log something here...
+			}
 		}
-
-		System.out.println(logFile.getAbsolutePath());
 	}
 
 	public void log(int lvl, String msg, boolean printCallerMethod) {
@@ -55,6 +56,7 @@ public class Logger {
 			FileUtils.writeStringToFile(logFile, logMsg, "UTF-8");
 		} catch (IOException e) {
 			log(LVL_ERROR, "We seem to have some kind of log-ception here.", true);
+			return;
 		}
 		// TODO: also print to gui once there is one
 	}

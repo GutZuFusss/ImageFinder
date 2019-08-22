@@ -8,10 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import gutzufusss.Main;
+import gutzufusss.util.Logger;
+
 public class SQLWrapper {
 	private static final String DB_PATH = "db/img_finder_data.db";
 	private static final int QUERY_TIMEOUT = 30; 
 	private static final String TABLE_IMG = "image_data";
+	
+	private static Main manager;
 
 	private static Connection connection = null;
 	private static Statement statement = null;
@@ -25,7 +30,7 @@ public class SQLWrapper {
 		try {
 			resultOfQuery = statement.executeQuery(query);
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: log as always...
+			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage(), true);
 		}
 
 		return resultOfQuery;
@@ -36,7 +41,7 @@ public class SQLWrapper {
 		try {
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: another one
+			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage(), true);
 		}
 	}
 	
@@ -48,13 +53,15 @@ public class SQLWrapper {
 				if(!db.getParentFile().exists()) // also check if we have to create the db directory
 					db.getParentFile().mkdir();
 				if(db.createNewFile()) {
-					// TODO: log successful db creation
+					manager.getLogger().log(Logger.LVL_INFO, "Database has been created. Attempting to create tables...");
 				} else {
-					return false; // TODO: important log! fatal error: database did not exist and could not be created
+					manager.getLogger().log(Logger.LVL_FATAL, "Could not open nor create database!!! Shutting down.", true);
+					return false;
 				}
 			}
 		} catch(IOException e) {
-			e.printStackTrace(); // TODO: log hog rog
+			manager.getLogger().log(Logger.LVL_FATAL, "I/O error occured while creating database: " + e.getMessage(), true);
+			return false;
 		}
 
 		// okay, we are now sure our database exists, lets check for the tables
@@ -67,7 +74,9 @@ public class SQLWrapper {
 		        " abs_path		VARCHAR(1024)," +						// absolute path to the file
 		        " ocr_data		VARCHAR(4096)," +						// text that was found in the image (TODO: limit ocr to 4096 so we don't overflow)
 		        " confidence	INTEGER)");								// how sure the ocr was about the result
-
+		
+		manager.getLogger().log(Logger.LVL_INFO, "SQL table generation was successful.");
+		
 		return true;
 	}
 
@@ -76,8 +85,8 @@ public class SQLWrapper {
 		try {
 			statement.close();
 			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: A N O T H E R    O N E
+		} catch(SQLException e) {
+			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage(), true);
 		}
 		
 		statement = null;
@@ -102,14 +111,17 @@ public class SQLWrapper {
 			try {
 				connection = createConnection();
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace(); // TODO: log as always...
+				if(e instanceof ClassNotFoundException)
+					manager.getLogger().log(Logger.LVL_ERROR, "Error while establishing a SQL conntection: " + e.getMessage(), true);
+				else if(e instanceof SQLException)
+					manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage(), true);
 			}
 		}
 		if(isStatementOpened()) {	
 			try {
 				statement = createStatement(connection);
 			} catch (SQLException e) {
-				e.printStackTrace(); // TODO: log as always...
+				manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage(), true);
 			}
 		}
 	}
@@ -118,4 +130,6 @@ public class SQLWrapper {
 
 	private static boolean isStatementOpened() { return statement == null; }
 	// END_MISC_FUNCTIONS
+	
+	public static final void setManager(Main m) { manager = m; }
 }
