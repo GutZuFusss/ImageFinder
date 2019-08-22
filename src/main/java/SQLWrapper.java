@@ -15,14 +15,19 @@ public class SQLWrapper {
 	// constructor is private to prevent instantiation because all methods in this class will be static anyways
 	private SQLWrapper() { }
 
-	public static void execSQL(String sql) throws ClassNotFoundException, SQLException {
+	public static void execSQL(String sql) {
 		createConStateIfNeeded();
 		statement.executeUpdate(sql);
 	}
 
-	public static ResultSet execSQLFetch(String query) throws ClassNotFoundException, SQLException {
+	public static ResultSet execSQLFetch(String query) {
 		createConStateIfNeeded();
-		ResultSet resultOfQuery = statement.executeQuery(query);
+		ResultSet resultOfQuery = null;
+		try {
+			resultOfQuery = statement.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: log as always...
+		}
 
 		return resultOfQuery;
 	}
