@@ -1,11 +1,7 @@
 package gutzufusss.util;
 
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 
