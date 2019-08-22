@@ -19,5 +19,9 @@ public class SQLWrapper {
 		Class.forName("org.sqlite.JDBC");
 		return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
 	}
+	
+	private static boolean isConnectionOpened() { return connection == null; }
+
+	private static boolean isStatementOpened() { return statement == null; }
 	// END_MISC_FUNCTIONS
 }
