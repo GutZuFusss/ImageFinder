@@ -6,6 +6,7 @@ import java.sql.Statement;
 
 public class SQLWrapper {
 	private static final String DB_PATH = "db/img_finder_data.db";
+	private static final int QUERY_TIMEOUT = 30; 
 	
 	private static Connection connection = null;
 	private static Statement statement = null;
@@ -18,6 +19,13 @@ public class SQLWrapper {
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+	}
+	
+	private static Statement createStatement(Connection connection) throws SQLException {
+		Statement statement = connection.createStatement();
+		statement.setQueryTimeout(QUERY_TIMEOUT);
+
+		return statement;
 	}
 	
 	private static boolean isConnectionOpened() { return connection == null; }
