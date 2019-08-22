@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import gutzufusss.Main;
+import gutzufusss.util.Logger;
 import net.sourceforge.lept4j.*;
 import net.sourceforge.lept4j.util.LeptUtils;
 import net.sourceforge.tess4j.*;
@@ -29,8 +30,7 @@ public class OCRWrapper {
 		try {
 			img = ImageIO.read(f);
 		} catch (IOException e) {
-			// TODO logg to gui here (need a GUI first, heh)
-			e.printStackTrace();
+			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage(), true);
 		}
 
 		return img;
@@ -55,13 +55,15 @@ public class OCRWrapper {
 		// loop over all files in directory
 		File dir = new File(path);
 		File[] directoryListing = dir.listFiles();
-		if (directoryListing != null) {
-			for (File child : directoryListing) {
+		if(directoryListing != null) {
+			for(File child : directoryListing)
 				getTextFromImg(child.getAbsolutePath(), handle);
-			}
-		} else {
-			// TODO: loggimoggi
 		}
+		else {
+			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: The directory seems to be empty!", true);
+		}
+		
+		manager.getLogger().log(Logger.LVL_INFO, "Done scanning the directory '" + path + "'.");
 
 		TessAPI1.TessBaseAPIEnd(handle); // clean up
 	}
@@ -90,7 +92,13 @@ public class OCRWrapper {
 
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
 		String result = TessAPI1.TessBaseAPIGetUTF8Text(handle).getString(0);
-		System.out.println("conf: " + conf + "\n" + result); // in the future warn here if confidence is too low
+		if(conf < 50)
+			manager.getLogger().log(Logger.LVL_WARN, "Processed '" + imgPath + 
+					"'. However, the confidence score was lower than 50 (" + conf + 
+					") that's why you are seeing this warning.");
+		
+		manager.getLogger().log(Logger.LVL_INFO, "'" + imgPath + "' done, confidence was " + conf + ".");
+		manager.getLogger().log(Logger.LVL_INFO, "Result: " + result);
 
 		return result;
 	}
