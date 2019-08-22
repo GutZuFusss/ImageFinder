@@ -15,7 +15,7 @@ import net.sourceforge.tess4j.util.ImageHelper;
 public class OCRWrapper {
 	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>'=%ß";
 	
-	Main manager;
+	private Main manager;
 	
 	public OCRWrapper(Main manager) {
 		this.manager = manager;
@@ -68,17 +68,17 @@ public class OCRWrapper {
 		BufferedImage processingImg = openImg(imgPath);
 
 		// image preprocessing (maybe change order a bit)
-		processingImg = imgManipulator.toGrayscale(processingImg); //only this = 549
+		processingImg = manager.getIMGManipulator().toGrayscale(processingImg); //only this = 549
 		//processingImg = ImageHelper.convertImageToBinary(processingImg); // this doesn't help much since we will often be facing complex backgrounds
-		processingImg = imgManipulator.smoothImg(processingImg);
-		processingImg = imgManipulator.addBorder(processingImg, 6);
-		//processingImg = imgManipulator.performSWT(processingImg);
+		processingImg = manager.getIMGManipulator().smoothImg(processingImg);
+		processingImg = manager.getIMGManipulator().addBorder(processingImg, 6);
+		//processingImg = manager.getIMGManipulator().performSWT(processingImg);
 //		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
-//		processingImg = imgManipulator.changeContrast(processingImg, 0.1);
+//		processingImg = manager.getIMGManipulator().changeContrast(processingImg, 0.1);
 //		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
 		
 		// finalize the image
-		Pix pix = imgManipulator.img2Pix(processingImg);
+		Pix pix = manager.getIMGManipulator().img2Pix(processingImg);
 		pix.xres = processingImg.getHeight(); // converting to pix somehow breaks the resolution somehow
 		pix.yres = processingImg.getWidth();
 
