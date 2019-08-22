@@ -10,8 +10,7 @@ import org.apache.commons.io.FileUtils;
 
 public class Logger {
 	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
-	
-	// TODO: enum
+
 	public static final int LVL_INFO = 1;
 	public static final int LVL_WARN = 2;
 	public static final int LVL_ERROR = 4;
@@ -50,7 +49,7 @@ public class Logger {
 		if(lvl >= LVL_ERROR)
 			calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
 
-		String logMsg = "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
+		String logMsg = "{" + getErrLvlStrin(lvl) + "}" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
 		try {
 			FileUtils.writeStringToFile(logFile, logMsg, "UTF-8", true);
@@ -58,7 +57,7 @@ public class Logger {
 			log(LVL_ERROR, "We seem to have some kind of log-ception here.");
 			return;
 		}
-		
+
 		System.out.println(logMsg); // TODO: only do this in some kind of debugging mode
 		
 		// TODO: also print to gui once there is one
@@ -75,4 +74,22 @@ public class Logger {
 	}
 
 	private String getTimestamp() { return getTimestamp(false); }
+
+	private String getErrLvlStrin(int lvl) {
+		switch(lvl){
+		case LVL_INFO:
+			return "INFO ";
+		case LVL_WARN:
+			return "WARN ";
+		case LVL_ERROR:
+			return "ERROR";
+		case LVL_FATAL:
+			return "FATAL";
+		case LVL_DEBUG:
+			return "DEBUG";
+		default:
+			log(LVL_ERROR, "Encountered unknown error level.");
+			return "UNKN";
+		} 
+	}
 }
