@@ -88,10 +88,11 @@ public class OCRWrapper {
 		
 		LeptUtils.dispose(pix); // clean up
 		
-		// save result into the database
+		// do some post processing &save result into the database
 		File fileInfo = new File(imgPath);
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
 		String result = TessAPI1.TessBaseAPIGetUTF8Text(handle).getString(0);
+		result = result.replaceAll("\\r\\n|\\r|\\n", " "); // screw linebreaks, srsly
 		if(result.length() > SQLWrapper.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not sure anymore
 			result = result.substring(0, SQLWrapper.MAX_IMG_TEXT_LEN);
 			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + SQLWrapper.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
