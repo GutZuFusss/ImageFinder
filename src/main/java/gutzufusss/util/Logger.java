@@ -28,23 +28,28 @@ public class Logger {
 		try {
 			if(!logFile.exists()) {
 				if(logFile.createNewFile()) {
-					log(LVL_INFO, "Log file has been created successfully.");
+					log(LVL_INFO, "Log file has been created.");
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace(); // kinda nonsense to log something here...
 		}
-		
+
 		System.out.println(logFile.getAbsolutePath());
 	}
 
 	public void log(int lvl, String msg, boolean printCallerMethod) {
-		int stackIndex = printCallerMethod ? 1 : 2; // if printCallerMethod == false we are likely coming from the overloaded function
+		int stackIndex = printCallerMethod ? 2 : 3; // if printCallerMethod == false we are likely coming from the overloaded function (will be changed once i have a better idea)
 		String calledFrom = Thread.currentThread().getStackTrace()[stackIndex].getClassName();
+
+		int numDots = (int)calledFrom.chars().filter(ch -> ch == '.').count(); // unnecessary but i use lambdas way to infrequent + i like spaghetti code
+		if(numDots != 0)
+			calledFrom = calledFrom.split("\\.")[numDots]; // don't display the package path to the class... noone cares
+
 		if(printCallerMethod)
-			calledFrom += "::" + Thread.currentThread().getStackTrace()[1].getMethodName();
-		
-		String logMsg = "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg;
+			calledFrom += "::" + Thread.currentThread().getStackTrace()[stackIndex].getMethodName();
+
+		String logMsg = "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
 		try {
 			FileUtils.writeStringToFile(logFile, logMsg, "UTF-8");
@@ -53,7 +58,7 @@ public class Logger {
 		}
 		// TODO: also print to gui once there is one
 	}
-	
+
 	public void log(int lvl, String msg) { log(lvl, msg, false); }
 
 	private String getTimestamp(boolean logger) {
@@ -63,12 +68,7 @@ public class Logger {
 		else
 			formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
 
-		Instant now = Instant.now();
-		return formatter.format(now);
-		/*if(logger)
-			return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss"));
-		else
-			return LocalDate.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));*/
+		return formatter.format(Instant.now());
 	}
 
 	private String getTimestamp() { return getTimestamp(false); }
