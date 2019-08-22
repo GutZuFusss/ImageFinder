@@ -15,12 +15,7 @@ public class SQLWrapper {
 	// constructor is private to prevent instantiation because all methods in this class will be static anyways
 	private SQLWrapper() { }
 
-	public static void execSQL(String sql) {
-		createConStateIfNeeded();
-		statement.executeUpdate(sql);
-	}
-
-	public static ResultSet execSQLFetch(String query) {
+	public static ResultSet execSQL(String query) {
 		createConStateIfNeeded();
 		ResultSet resultOfQuery = null;
 		try {
