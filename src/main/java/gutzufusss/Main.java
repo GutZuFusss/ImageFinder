@@ -26,9 +26,9 @@ public class Main {
 		ocrWrapper = new OCRWrapper(this);
 		imgManipulator = new ImageManipulation(this);
 		logger = new Logger();
-		
+
 		getLogger().log(Logger.LVL_INFO, "ImageFinder initialized successfully!");
-		
+
 		ocrWrapper.scanDirectory("test_images");
 	}
 
