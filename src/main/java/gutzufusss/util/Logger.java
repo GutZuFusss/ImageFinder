@@ -35,10 +35,13 @@ public class Logger {
 	}
 
 	public void log(int lvl, String msg, boolean printCallerMethod) {
-		String calledFrom = Thread.currentThread().getStackTrace()[1].getClassName()
+		int stackIndex = printCallerMethod ? 1 : 2; // if printCallerMethod == false we are likely coming from the overloaded function
+		String calledFrom = Thread.currentThread().getStackTrace()[stackIndex].getClassName()
 				+ (printCallerMethod ? "::" + Thread.currentThread().getStackTrace()[1].getMethodName() : "");
 
 	}
+	
+	public void log(int lvl, String msg) { log(lvl, msg, false); }
 
 	private String getTimestamp(boolean logger) {
 		if(logger)
