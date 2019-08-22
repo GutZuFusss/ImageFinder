@@ -21,7 +21,7 @@ public class Main {
 			else if(e instanceof SQLException)
 				getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 		}
-		SQLWrapper.setManager(this);
+		SQLWrapper.setController(this);
 
 		ocrWrapper = new OCRWrapper(this);
 		imgManipulator = new ImageManipulation(this);

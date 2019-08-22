@@ -17,7 +17,7 @@ public class SQLWrapper {
 	public static final String TABLE_IMG = "image_data";
 	public static final int MAX_IMG_TEXT_LEN = 4096;
 	
-	private static Main manager;
+	private static Main controller;
 
 	private static Connection connection = null;
 	private static Statement statement = null;
@@ -31,7 +31,7 @@ public class SQLWrapper {
 		try {
 			resultOfQuery = statement.executeQuery(query);
 		} catch (SQLException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
+			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 
 		return resultOfQuery;
@@ -42,7 +42,7 @@ public class SQLWrapper {
 		try {
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
+			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 	}
 	
@@ -54,14 +54,14 @@ public class SQLWrapper {
 				if(!db.getParentFile().exists()) // also check if we have to create the db directory
 					db.getParentFile().mkdir();
 				if(db.createNewFile()) {
-					manager.getLogger().log(Logger.LVL_INFO, "Database has been created. Attempting to create tables...");
+					controller.getLogger().log(Logger.LVL_INFO, "Database has been created. Attempting to create tables...");
 				} else {
-					manager.getLogger().log(Logger.LVL_FATAL, "Could not open nor create database!!! Shutting down.");
+					controller.getLogger().log(Logger.LVL_FATAL, "Could not open nor create database!!! Shutting down.");
 					return false;
 				}
 			}
 		} catch(IOException e) {
-			manager.getLogger().log(Logger.LVL_FATAL, "I/O error occured while creating database: " + e.getMessage());
+			controller.getLogger().log(Logger.LVL_FATAL, "I/O error occured while creating database: " + e.getMessage());
 			return false;
 		}
 
@@ -76,7 +76,7 @@ public class SQLWrapper {
 		        " ocr_data		VARCHAR(" + MAX_IMG_TEXT_LEN + ")," +	// text that was found in the image
 		        " confidence	INTEGER)");								// how sure the ocr was about the result
 		
-		manager.getLogger().log(Logger.LVL_INFO, "SQL table generation was successful.");
+		controller.getLogger().log(Logger.LVL_INFO, "SQL table generation was successful.");
 		
 		return true;
 	}
@@ -87,7 +87,7 @@ public class SQLWrapper {
 			statement.close();
 			connection.close();
 		} catch(SQLException e) {
-			manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
+			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 		
 		statement = null;
@@ -113,16 +113,16 @@ public class SQLWrapper {
 				connection = createConnection();
 			} catch (ClassNotFoundException | SQLException e) {
 				if(e instanceof ClassNotFoundException)
-					manager.getLogger().log(Logger.LVL_ERROR, "Error while establishing a SQL conntection: " + e.getMessage());
+					controller.getLogger().log(Logger.LVL_ERROR, "Error while establishing a SQL conntection: " + e.getMessage());
 				else if(e instanceof SQLException)
-					manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
+					controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 			}
 		}
 		if(isStatementOpened()) {	
 			try {
 				statement = createStatement(connection);
 			} catch (SQLException e) {
-				manager.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
+				controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 			}
 		}
 	}
@@ -132,5 +132,5 @@ public class SQLWrapper {
 	private static boolean isStatementOpened() { return statement == null; }
 	// END_MISC_FUNCTIONS
 	
-	public static final void setManager(Main m) { manager = m; }
+	public static final void setController(Main c) { controller = c; }
 }
