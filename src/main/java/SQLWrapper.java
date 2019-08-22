@@ -35,6 +35,8 @@ public class SQLWrapper {
 
 		try {
 			if(!db.exists()) {
+				if(!db.getParentFile().exists()) // also check if we have to create the db directory
+					db.getParentFile().mkdir();
 				if(db.createNewFile()) {
 					// TODO: log successful db creation
 				} else {
@@ -44,17 +46,17 @@ public class SQLWrapper {
 		} catch(IOException e) {
 			e.printStackTrace(); // TODO: log hog rog
 		}
-		
+
 		// okay, we are now sure our database exists, lets check for the tables
-		if(!execSQL("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_IMG + "';").wasNull())
+		if(execSQL("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_IMG + "';").next())
 			return true;
-			
+
 		execSQL("CREATE TABLE " + TABLE_IMG + " " +
-		        "(id INTEGER PRIMARY KEY AUTOINCREMENT," +	// pkey
-		        " name VARCHAR(256)" +						// max filename length is 255 (on win at least, haaaaah)
-		        " abs_path VARCHAR(1024)," +				// absolute path to the file
-		        " ocr_data VARCHAR(4096)," +				// text that was found in the image (TODO: limit ocr to 4096 so we don't overflow)
-		        " confidence INTEGER)");					// how sure the ocr was about the result
+		        "(id 			INTEGER PRIMARY KEY AUTOINCREMENT," +	// pkey
+		        " name			VARCHAR(256)," +						// max filename length is 255 (on win at least, haaaaah)
+		        " abs_path		VARCHAR(1024)," +						// absolute path to the file
+		        " ocr_data		VARCHAR(4096)," +						// text that was found in the image (TODO: limit ocr to 4096 so we don't overflow)
+		        " confidence	INTEGER)");								// how sure the ocr was about the result
 
 		return true;
 	}
