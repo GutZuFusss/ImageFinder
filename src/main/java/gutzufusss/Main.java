@@ -18,14 +18,13 @@ public class Main {
 		} catch (InterruptedException | SQLException e) {
 			e.printStackTrace(); // TODO: i guess you know what to do here by now...
 		}
+		SQLWrapper.setManager(this);
 
 		ocrWrapper = new OCRWrapper(this);
-		imgManipulator = new ImageManipulation();
+		imgManipulator = new ImageManipulation(this);
 		logger = new Logger();
 		
 		getLogger().log(Logger.LVL_INFO, "ImageFinder initialized successfully!", true);
-		
-		//ocrWrapper.scanDirectory("test_images");
 	}
 
 	public OCRWrapper getOCR() { return ocrWrapper; }

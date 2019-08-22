@@ -2,6 +2,7 @@ package gutzufusss.util;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
@@ -11,12 +12,17 @@ import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.processing.edges.CannyEdgeDetector;
 import org.openimaj.image.processing.edges.StrokeWidthTransform;
 
+import gutzufusss.Main;
 import net.sourceforge.lept4j.Pix;
 import net.sourceforge.lept4j.util.LeptUtils;
 import net.sourceforge.tess4j.util.ImageHelper;
 
 public class ImageManipulation {
-	public ImageManipulation() {
+	private Main manager;
+	
+	public ImageManipulation(Main manager) {
+		this.manager = manager;
+		
 		// this is needed to use opencv (C:\Program Files\Java\jre1.8.0_221\bin)
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		nu.pattern.OpenCV.loadLibrary();
@@ -28,8 +34,7 @@ public class ImageManipulation {
 		try {
 			pix = LeptUtils.convertImageToPix(img);
 		} catch (IOException e) {
-			// TODO logg to gui here (need a GUI first, heh)
-			e.printStackTrace();
+			manager.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage(), true);
 		}
 
 		return pix;
