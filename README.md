@@ -8,7 +8,7 @@ The Project uses Maven for dependencies and building.
 License
 -------
 Note that this code is licensed under the GNU General Public License v3.
-If you make any changes to the source you are obliged to also license it under the GPLv3 and you are also required to *release the full source code aswell*.
+If you make any changes to the source you are obliged to also license it under the GPLv3 and you are also required to **release the full source code aswell**.
 This may only seem fair, but too many people are just too immature so I have to license it under the GPLv3 copyleft license.
 
 
