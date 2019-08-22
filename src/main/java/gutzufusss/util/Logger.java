@@ -9,7 +9,7 @@ import java.util.Locale;
 import org.apache.commons.io.FileUtils;
 
 public class Logger {
-	private final String LOG_PATH = "logs/" + getTimestamp(true) + ".log";
+	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
 	
 	// TODO: enum
 	public static final int LVL_INFO = 1;
@@ -59,7 +59,7 @@ public class Logger {
 			return;
 		}
 		
-		System.out.println(logMsg);
+		System.out.println(logMsg); // TODO: only do this in some kind of debugging mode
 		
 		// TODO: also print to gui once there is one
 	}
@@ -67,7 +67,7 @@ public class Logger {
 	private String getTimestamp(boolean logger) {
 		DateTimeFormatter formatter = null;
 		if(logger)
-			formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
+			formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH-mm-ss").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
 		else
 			formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
 
