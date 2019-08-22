@@ -14,9 +14,9 @@ import gutzufusss.util.Logger;
 
 public class SQLWrapper {
 	private static final String DB_PATH = "db/img_finder_data.db";
-	private static final int QUERY_TIMEOUT = 30; 
+	private static final int QUERY_TIMEOUT = 30;
 	public static final String TABLE_IMG = "image_data";
-	
+
 	private static Main controller;
 
 	private static Connection connection = null;
@@ -30,7 +30,14 @@ public class SQLWrapper {
 		ResultSet resultOfQuery = null;
 		try {
 			resultOfQuery = statement.executeQuery(query);
+			controller.getLogger().log(Logger.LVL_DEBUG, "Executed querry: " + query);
 		} catch(SQLException e) {
+			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
+		}
+		
+		try {
+			controller.getLogger().log(Logger.LVL_DEBUG, "Results: " + resultOfQuery.getFetchSize());
+		} catch (SQLException e) {
 			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 
@@ -41,11 +48,12 @@ public class SQLWrapper {
 		createConAndStateIfNeeded();
 		try {
 			statement.executeUpdate(sql);
+			controller.getLogger().log(Logger.LVL_DEBUG, "Executed sql: " + sql);
 		} catch(SQLException e) {
 			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 	}
-	
+
 	public static boolean startUpCheck() throws SQLException {
 		File db = new File(DB_PATH);
 
@@ -66,8 +74,10 @@ public class SQLWrapper {
 		}
 
 		// okay, we are now sure our database exists, lets check for the tables
-		if(execQuerry("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_IMG + "';").next())
+		if(execQuerry("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_IMG + "';").next()) {
+			controller.getLogger().log(Logger.LVL_DEBUG, "Found SQL table " + TABLE_IMG);
 			return true;
+		}
 
 		execSQL("CREATE TABLE " + TABLE_IMG + " " +
 		        "(id 			INTEGER PRIMARY KEY AUTOINCREMENT," +				// pkey
@@ -77,7 +87,7 @@ public class SQLWrapper {
 		        " confidence	INTEGER)");											// how sure the ocr was about the result
 		
 		controller.getLogger().log(Logger.LVL_INFO, "SQL table generation was successful.");
-		
+
 		return true;
 	}
 
@@ -89,12 +99,15 @@ public class SQLWrapper {
 		} catch(SQLException e) {
 			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
-		
+
+		controller.getLogger().log(Logger.LVL_DEBUG, "Database shutdown.");
+
 		statement = null;
 		connection = null;
 	}
 
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
+		controller.getLogger().log(Logger.LVL_DEBUG, "Creating database connection to: " + "jdbc:sqlite:" + DB_PATH);
 		Class.forName("org.sqlite.JDBC");
 		return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
 	}
@@ -103,6 +116,8 @@ public class SQLWrapper {
 		Statement statement = connection.createStatement();
 		statement.setQueryTimeout(QUERY_TIMEOUT);
 
+		controller.getLogger().log(Logger.LVL_DEBUG, "Created statement,  warnings: " + statement.getWarnings().getMessage());
+
 		return statement;
 	}
 
@@ -110,6 +125,7 @@ public class SQLWrapper {
 		// check wether our connection & statement are active already
 		if(isConnectionOpened()) {
 			try {
+				controller.getLogger().log(Logger.LVL_DEBUG, "Trying to establish connection.");
 				connection = createConnection();
 			} catch(ClassNotFoundException | SQLException e) {
 				if(e instanceof ClassNotFoundException)
@@ -120,6 +136,7 @@ public class SQLWrapper {
 		}
 		if(isStatementOpened()) {	
 			try {
+				controller.getLogger().log(Logger.LVL_DEBUG, "Trying to create statement.");
 				statement = createStatement(connection);
 			} catch(SQLException e) {
 				controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
