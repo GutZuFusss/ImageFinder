@@ -37,6 +37,9 @@ public class Logger {
 	}
 
 	public void log(int lvl, String msg) {
+		if(!GlobalUtil.DEBUG_MODE && lvl == LVL_DEBUG)
+			return;
+		
 		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack
 
 		int numDots = (int)calledFrom.chars().filter(ch -> ch == '.').count(); // unnecessary but i use lambdas way to infrequent + i like spaghetti code
