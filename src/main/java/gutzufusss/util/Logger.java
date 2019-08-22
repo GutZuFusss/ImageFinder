@@ -41,7 +41,6 @@ public class Logger {
 			return;
 		
 		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack
-
 		int numDots = (int)calledFrom.chars().filter(ch -> ch == '.').count(); // unnecessary but i use lambdas way to infrequent + i like spaghetti code
 		if(numDots != 0)
 			calledFrom = calledFrom.split("\\.")[numDots]; // don't display the package path to the class... noone cares
@@ -57,8 +56,9 @@ public class Logger {
 			log(LVL_ERROR, "We seem to have some kind of log-ception here.");
 			return;
 		}
-
-		System.out.println(logMsg); // TODO: only do this in some kind of debugging mode
+		
+		if(GlobalUtil.DEBUG_MODE)
+			System.out.println(logMsg);
 
 		// TODO: also print to gui once there is one
 	}
