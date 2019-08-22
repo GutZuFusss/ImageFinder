@@ -14,7 +14,8 @@ import gutzufusss.util.Logger;
 public class SQLWrapper {
 	private static final String DB_PATH = "db/img_finder_data.db";
 	private static final int QUERY_TIMEOUT = 30; 
-	private static final String TABLE_IMG = "image_data";
+	public static final String TABLE_IMG = "image_data";
+	public static final int MAX_IMG_TEXT_LEN = 4096;
 	
 	private static Main manager;
 
@@ -72,7 +73,7 @@ public class SQLWrapper {
 		        "(id 			INTEGER PRIMARY KEY AUTOINCREMENT," +	// pkey
 		        " name			VARCHAR(256)," +						// max filename length is 255 (on win at least, haaaaah)
 		        " abs_path		VARCHAR(1024)," +						// absolute path to the file
-		        " ocr_data		VARCHAR(4096)," +						// text that was found in the image (TODO: limit ocr to 4096 so we don't overflow)
+		        " ocr_data		VARCHAR(" + MAX_IMG_TEXT_LEN + ")," +	// text that was found in the image
 		        " confidence	INTEGER)");								// how sure the ocr was about the result
 		
 		manager.getLogger().log(Logger.LVL_INFO, "SQL table generation was successful.");

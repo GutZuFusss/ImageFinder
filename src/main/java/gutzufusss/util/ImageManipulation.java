@@ -44,7 +44,7 @@ public class ImageManipulation {
 												// however
 		int type = img.getType() == BufferedImage.TYPE_3BYTE_BGR ? CvType.CV_8UC3 : CvType.CV_8UC1;
 		Mat mat = new Mat(img.getHeight(), img.getWidth(), type);
-		byte[] data = ((DataBufferByte) img.getRaster().getDataBuffer()).getData();
+		byte[] data = ((DataBufferByte)img.getRaster().getDataBuffer()).getData();
 		mat.put(0, 0, data);
 
 		return mat;
