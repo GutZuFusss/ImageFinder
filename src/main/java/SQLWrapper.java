@@ -37,8 +37,7 @@ public class SQLWrapper {
 			e.printStackTrace(); // TODO: another one
 		}
 	}
-
-	// START_MISC_FUNCTIONS
+	
 	public static boolean startUpCheck() throws SQLException {
 		File db = new File(DB_PATH);
 
@@ -70,6 +69,7 @@ public class SQLWrapper {
 		return true;
 	}
 
+	// START_MISC_FUNCTIONS
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
