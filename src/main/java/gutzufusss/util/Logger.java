@@ -58,6 +58,9 @@ public class Logger {
 			log(LVL_ERROR, "We seem to have some kind of log-ception here.", true);
 			return;
 		}
+		
+		System.out.println(logMsg);
+		
 		// TODO: also print to gui once there is one
 	}
 
