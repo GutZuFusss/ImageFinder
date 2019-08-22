@@ -1,6 +1,7 @@
 package gutzufusss;
 import java.sql.SQLException;
 
+import gutzufusss.util.ImageManipulation;
 import gutzufusss.wrapper.OCRWrapper;
 import gutzufusss.wrapper.SQLWrapper;
 
