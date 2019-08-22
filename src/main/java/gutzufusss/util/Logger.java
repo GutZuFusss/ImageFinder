@@ -32,7 +32,7 @@ public class Logger {
 					log(LVL_INFO, "Log file was created.");
 				}
 			}
-		} catch (IOException e) {
+		} catch(IOException e) {
 			if(e instanceof IOException) {
 				log(LVL_FATAL, "Something went horribly wrong (I/O).");
 				e.printStackTrace(); // kinda nonsense to log something here...
@@ -54,7 +54,7 @@ public class Logger {
 
 		try {
 			FileUtils.writeStringToFile(logFile, logMsg, "UTF-8", true);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			log(LVL_ERROR, "We seem to have some kind of log-ception here.");
 			return;
 		}

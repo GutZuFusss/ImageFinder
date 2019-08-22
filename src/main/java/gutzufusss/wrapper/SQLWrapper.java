@@ -30,7 +30,7 @@ public class SQLWrapper {
 		ResultSet resultOfQuery = null;
 		try {
 			resultOfQuery = statement.executeQuery(query);
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 
@@ -41,7 +41,7 @@ public class SQLWrapper {
 		createConAndStateIfNeeded();
 		try {
 			statement.executeUpdate(sql);
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 	}
@@ -111,7 +111,7 @@ public class SQLWrapper {
 		if(isConnectionOpened()) {
 			try {
 				connection = createConnection();
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch(ClassNotFoundException | SQLException e) {
 				if(e instanceof ClassNotFoundException)
 					controller.getLogger().log(Logger.LVL_ERROR, "Error while establishing a SQL conntection: " + e.getMessage());
 				else if(e instanceof SQLException)
@@ -121,7 +121,7 @@ public class SQLWrapper {
 		if(isStatementOpened()) {	
 			try {
 				statement = createStatement(connection);
-			} catch (SQLException e) {
+			} catch(SQLException e) {
 				controller.getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 			}
 		}

@@ -27,7 +27,7 @@ public class OCRWrapper {
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(f);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			controller.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage());
 		}
 
