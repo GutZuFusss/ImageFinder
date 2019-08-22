@@ -7,8 +7,8 @@ import java.sql.Statement;
 public class SQLWrapper {
 	private static final String DB_PATH = "db/img_finder_data.db";
 	
-	public static Connection connection = null;
-	public static Statement statement = null;
+	private static Connection connection = null;
+	private static Statement statement = null;
 
 	// constructor is private to prevent instantiation because all methods in this class will be static anyways
 	private SQLWrapper() { }
