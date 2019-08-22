@@ -2,7 +2,6 @@ package gutzufusss.util;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
