@@ -45,7 +45,7 @@ public class ConfigDBController extends SQLWrapper {
 	}
 	
 	public boolean loadConfig(String configName) { // TODO: continue haaaah
-		ResultSet result = execQuerry("SELECT * FROM " + TABLE_CONF + " WHERE config_name='" + configName + "';");
+		//ResultSet result = execQuerry("SELECT * FROM " + TABLE_CONF + " WHERE config_name='" + configName + "';");
 		return false;
 	}
 }

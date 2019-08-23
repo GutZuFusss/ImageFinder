@@ -20,21 +20,23 @@ public class Main {
 		imgDB = new ImageDBController();
 		ocrWrapper = new OCRWrapper(this, imgDB);
 		imgManipulator = new ImageManipulation(this);
-		
+
 		SQLWrapper.setLogger(logger);
 		
 		// database & table checks
 		try {
-			SQLWrapper.checkDB(logger);
+			SQLWrapper.checkDB();
 			imgDB.tableCheck();
 			config.getConfigDB().tableCheck();
 		} catch(SQLException e) {
 			getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 		}
 
+		new GUI(this);
+
 		getLogger().log(Logger.LVL_INFO, "ImageFinder initialized successfully!");
 
-		ocrWrapper.scanDirectory("test_images");
+		//ocrWrapper.scanDirectory("test_images");
 	}
 
 	public OCRWrapper getOCR() { return ocrWrapper; }

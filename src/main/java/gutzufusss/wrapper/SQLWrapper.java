@@ -47,7 +47,7 @@ public abstract class SQLWrapper {
 		}
 	}
 	
-	public static void checkDB(Logger logger) {
+	public static void checkDB() {
 		File db = new File(DB_PATH);
 
 		try {
