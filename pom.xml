@@ -32,5 +32,10 @@
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.28.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.weblookandfeel</groupId>
+			<artifactId>weblaf-ui</artifactId>
+			<version>1.2.9</version>
+		</dependency>
 	</dependencies>
 </project>
