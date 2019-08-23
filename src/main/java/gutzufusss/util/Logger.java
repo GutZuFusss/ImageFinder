@@ -2,11 +2,15 @@ package gutzufusss.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 
 public class Logger {
-	private final String LOG_PATH = "logs/log_" + GlobalUtil.getTimestamp(true) + ".log";
+	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
 
 	public static final int LVL_INFO = 1;
 	public static final int LVL_WARN = 2;
@@ -48,7 +52,7 @@ public class Logger {
 		if(lvl >= LVL_ERROR)
 			calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
 
-		String logMsg = "{" + getErrLvlStrin(lvl) + "}" + "[" + GlobalUtil.getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
+		String logMsg = "{" + getErrLvlStrin(lvl) + "}" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
 		try {
 			FileUtils.writeStringToFile(logFile, logMsg + "\n", "UTF-8", true);
@@ -80,4 +84,16 @@ public class Logger {
 			return "UNKN";
 		} 
 	}
+	
+	public static String getTimestamp(boolean logger) {
+		DateTimeFormatter formatter = null;
+		if(logger)
+			formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH-mm-ss").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
+		else
+			formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
+
+		return formatter.format(Instant.now());
+	}
+
+	public static String getTimestamp() { return getTimestamp(false); }
 }
