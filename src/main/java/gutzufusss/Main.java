@@ -23,7 +23,8 @@ public class Main {
 		// database & table checks
 		try {
 			SQLWrapper.checkDB(logger);
-			imgDB.startUpCheck();
+			imgDB.tableCheck();
+			configDB.tableCheck();
 		} catch(SQLException e) {
 			getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 		}

@@ -65,7 +65,7 @@ public abstract class SQLWrapper {
 		}
 	}
 	
-	public abstract boolean startUpCheck() throws SQLException;
+	public abstract void tableCheck() throws SQLException;
 
 	// START_MISC_FUNCTIONS
 	public final void closeDB() {

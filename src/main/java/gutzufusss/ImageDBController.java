@@ -16,10 +16,10 @@ public class ImageDBController extends SQLWrapper {
 	}
 
 	@Override
-	public boolean startUpCheck() throws SQLException {
+	public void tableCheck() throws SQLException {
 		if(execQuerry("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_IMG + "';").next()) {
 			logger.log(Logger.LVL_DEBUG, "Found SQL table " + TABLE_IMG);
-			return true;
+			return;
 		}
 		
 		logger.log(Logger.LVL_DEBUG, "Attempting to create table: " + TABLE_IMG);
@@ -30,10 +30,7 @@ public class ImageDBController extends SQLWrapper {
 		        " abs_path		VARCHAR(1024)," +									// absolute path to the file
 		        " ocr_data		VARCHAR(" + MAX_IMG_TEXT_LEN + ")," +				// text that was found in the image
 		        " confidence	INTEGER)");											// how sure the ocr was about the result
-		
+
 		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_IMG + "' was generated.");
-
-		return true;
 	}
-
 }

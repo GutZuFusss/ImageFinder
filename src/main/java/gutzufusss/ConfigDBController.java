@@ -13,10 +13,10 @@ public class ConfigDBController extends SQLWrapper {
 	}
 
 	@Override
-	public boolean startUpCheck() throws SQLException {
-		if (execQuerry("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_CONF + "';").next()) {
+	public void tableCheck() throws SQLException {
+		if(execQuerry("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_CONF + "';").next()) {
 			logger.log(Logger.LVL_DEBUG, "Found SQL table " + TABLE_CONF);
-			return true;
+			return;
 		}
 		
 		logger.log(Logger.LVL_DEBUG, "Attempting to create table: " + TABLE_CONF);
@@ -27,8 +27,5 @@ public class ConfigDBController extends SQLWrapper {
 				" crit_conf		INTEGER)"); 			// critical confidence treshold
 
 		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_CONF + "' was generated.");
-
-		return true;
 	}
-
 }
