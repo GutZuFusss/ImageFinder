@@ -1,5 +1,7 @@
 package gutzufusss.wrapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -44,7 +46,25 @@ public abstract class SQLWrapper {
 			logger.log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 	}
+	
+	public static void checkDB(Logger logger) {
+		File db = new File(DB_PATH);
 
+		try {
+			if(!db.exists()) {
+				if(!db.getParentFile().exists()) // also check if we have to create the db directory
+					db.getParentFile().mkdir();
+				if(db.createNewFile()) {
+					logger.log(Logger.LVL_INFO, "Database has been created. Attempting to create tables...");
+				} else {
+					logger.log(Logger.LVL_FATAL, "Could not open nor create database!!! Shutting down.");
+				}
+			}
+		} catch(IOException e) {
+			logger.log(Logger.LVL_FATAL, "I/O error occured while creating database: " + e.getMessage());
+		}
+	}
+	
 	public abstract boolean startUpCheck() throws SQLException;
 
 	// START_MISC_FUNCTIONS
