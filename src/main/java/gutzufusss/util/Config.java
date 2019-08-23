@@ -3,17 +3,16 @@ package gutzufusss.util;
 import gutzufusss.ConfigDBController;
 
 public class Config {
-	/* config variables start here */
+	/* ################ config variables ################ */
 	public class ConfigVariables {
 		public String		configName;
 		public boolean		debug;
 		public int			logLevel;
 		public int			critConf;
 	}
-	public ConfigVariables curConf = new ConfigVariables();
-	/* config variables end here */
-	
-	public ConfigVariables defConf = new ConfigVariables();
+	public ConfigVariables curConf = new ConfigVariables(); // live vars
+	public ConfigVariables defConf = new ConfigVariables(); // default vars
+	/* ################ config variables ################ */
 	
 	private Logger logger;
 	private ConfigDBController configDB;
@@ -22,6 +21,7 @@ public class Config {
 		this.logger = logger;
 		configDB = new ConfigDBController(this);
 		
+		setDefaultConf();
 		initConfigVars();
 	}
 	

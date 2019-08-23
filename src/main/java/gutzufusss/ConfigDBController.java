@@ -45,6 +45,5 @@ public class ConfigDBController extends SQLWrapper {
 	
 	public boolean loadConfig(String configName) {
 		return false;
-		
 	}
 }
