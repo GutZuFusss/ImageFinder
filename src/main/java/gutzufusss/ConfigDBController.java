@@ -6,7 +6,7 @@ import gutzufusss.util.Logger;
 import gutzufusss.wrapper.SQLWrapper;
 
 public class ConfigDBController extends SQLWrapper {
-	public static final String 	TABLE_CONF = "config_data";
+	public static final String TABLE_CONF = "config_data";
 
 	public ConfigDBController(Logger logger) {
 		this.logger = logger;
