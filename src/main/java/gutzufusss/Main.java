@@ -13,10 +13,10 @@ public class Main {
 	private Logger logger;
 
 	public Main() {
-		ocrWrapper = new OCRWrapper(this, imgDB);
-		imgManipulator = new ImageManipulation(this);
 		logger = new Logger();
 		imgDB = new ImageDBController(logger);
+		ocrWrapper = new OCRWrapper(this, imgDB);
+		imgManipulator = new ImageManipulation(this);
 		
 		try {
 			if(imgDB.startUpCheck() == false)
