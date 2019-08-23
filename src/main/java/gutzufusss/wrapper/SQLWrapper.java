@@ -107,7 +107,7 @@ public abstract class SQLWrapper {
 		Statement statement = connection.createStatement();
 		statement.setQueryTimeout(QUERY_TIMEOUT);
 
-		//logger.log(Logger.LVL_DEBUG, "Created statement,  warnings: " + statement.getWarnings().getMessage());
+		logger.log(Logger.LVL_DEBUG, "Created statement, query timeout: " + statement.getQueryTimeout());
 
 		return statement;
 	}
