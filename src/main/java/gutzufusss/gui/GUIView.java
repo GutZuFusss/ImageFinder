@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Cursor;
 
 @SuppressWarnings("serial")
 public class GUIView extends JFrame {
@@ -52,9 +53,11 @@ public class GUIView extends JFrame {
 		JTextField textField = new JTextField();
 		textField.setBounds(9, 31, 376, 22);
 		getContentPane().add(textField);
+		textField.setText(System.getProperty("user.home") + "\Pictures"); // preset the tf to something nice
 		textField.setColumns(10);
 
 		JList<String> list = new JList<String>(controller.getLogger().guiLogStream);
+		list.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		list.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(9, 260, 955, 230);
