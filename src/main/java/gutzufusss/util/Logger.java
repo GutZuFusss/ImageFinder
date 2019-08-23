@@ -15,7 +15,7 @@ public class Logger {
 	public static final int LVL_ERROR = 4;
 	public static final int LVL_WARN = 8;
 	public static final int LVL_INFO = 16;
-	
+
 	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
 
 	private File logFile;
@@ -43,14 +43,12 @@ public class Logger {
 	public void log(int lvl, String msg) {
 		if(/*!DEBUG_MODE &&*/ lvl == LVL_DEBUG)
 			return;
-		
+
 		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack
 		int numDots = (int)calledFrom.chars().filter(ch -> ch == '.').count(); // unnecessary but i use lambdas way to infrequent + i like spaghetti code
 		if(numDots != 0)
 			calledFrom = calledFrom.split("\\.")[numDots]; // don't display the package path to the class... noone cares
-
-		if(lvl >= LVL_ERROR)
-			calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
+		calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
 
 		String logMsg = "{" + getErrLvlStrin(lvl) + "}" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
@@ -60,7 +58,7 @@ public class Logger {
 			log(LVL_ERROR, "We seem to have some kind of log-ception here.");
 			return;
 		}
-		
+
 		System.out.println(logMsg);
 
 		// TODO: also print to gui once there is one
@@ -83,7 +81,7 @@ public class Logger {
 			return "UNKN";
 		} 
 	}
-	
+
 	public static String getTimestamp(boolean logger) {
 		DateTimeFormatter formatter = null;
 		if(logger)
