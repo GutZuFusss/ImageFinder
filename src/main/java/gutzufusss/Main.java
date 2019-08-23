@@ -32,7 +32,7 @@ public class Main {
 			getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 		}
 
-		new GUI(this);
+		new GUI(logger, this);
 
 		getLogger().log(Logger.LVL_INFO, "ImageFinder initialized successfully!");
 

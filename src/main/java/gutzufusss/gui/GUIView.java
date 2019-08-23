@@ -1,16 +1,16 @@
 package gutzufusss.gui;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
 
-import gutzufusss.Main;
+import gutzufusss.util.Logger;
 
 import javax.swing.JScrollPane;
 
@@ -18,37 +18,45 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Cursor;
-import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JDesktopPane;
 import javax.swing.JComboBox;
-import java.awt.Panel;
+
 import javax.swing.border.TitledBorder;
-import javax.swing.JToggleButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
-import javax.swing.JCheckBox;
-import javax.swing.JSeparator;
 import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
 public class GUIView extends JFrame {
-	private Main controller;
+	private Logger logger;
+	private GUIController guiCtrl;
 
-	public GUIView(Main m) {
-		getContentPane().setFont(new Font("Monospaced", Font.PLAIN, 11));
-		controller = m;
+	public GUIView(Logger logger, GUIController guiCtrl) {
+		this.logger = logger;
+		this.guiCtrl = guiCtrl;
+
 		setUpLookAndFeel();
+		initializeGUI();
+
+		this.setVisible(true);
+
+		logger.log(Logger.LVL_INFO, "GUI initialization worked fine (\"GUIModel->GUIController->GUIView\" chain).");
+	}
+
+	private void initializeGUI() {
+		getContentPane().setFont(new Font("Monospaced", Font.PLAIN, 11));
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("ImageFinder");
 		setResizable(false);
 		setSize(new Dimension(980, 530));
 		getContentPane().setSize(new Dimension(980, 530));
+		setLocation(520, 300);
 		getContentPane().setLayout(null);
 
 		JButton btnBrowse = new JButton("Browse...");
+		btnBrowse.addActionListener(guiCtrl);
 		btnBrowse.setBounds(290, 62, 95, 25);
 		btnBrowse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getContentPane().add(btnBrowse);
@@ -71,12 +79,19 @@ public class GUIView extends JFrame {
 		textField.setText(System.getProperty("user.home") + "\\Pictures"); // preset the tf to something nice
 		textField.setColumns(10);
 
-		JList<String> list = new JList<String>(controller.getLogger().guiLogStream);
+		JList<String> list = new JList<String>(logger.guiLogStream);
 		list.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		list.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(9, 260, 955, 230);
 		getContentPane().add(scrollPane);
+		
+		// auto scroll code, works in loop
+		/*scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  
+	        public void adjustmentValueChanged(AdjustmentEvent e) {  
+	            e.getAdjustable().setValue(e.getAdjustable().getValue());  
+	        }
+	    });*/
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 396, 98);
@@ -108,7 +123,7 @@ public class GUIView extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setMaximumRowCount(5);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"16:INFO", "8:WARN", "4:ERROR", "2:FATAL", "1:DEBUG", "", "", ""}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"16:INFO", "8:WARN", "4:ERROR", "2:FATAL", "1:DEBUG"}));
 		comboBox.setToolTipText("The lower the number the less logging messages you will get.");
 		comboBox.setBounds(79, 8, 73, 20);
 		panel_1.add(comboBox);
@@ -133,20 +148,15 @@ public class GUIView extends JFrame {
 		lblCertainItemsYou.setBounds(9, 111, 287, 14);
 		getContentPane().add(lblCertainItemsYou);
 
-		initializeGUI();
-		this.setVisible(true);
-	}
-
-	private void initializeGUI() {
 	}
 
 	private void setUpLookAndFeel() {
 		getContentPane().setBackground(Color.DARK_GRAY);
-		JFrame.setDefaultLookAndFeelDecorated(false);
+		JFrame.setDefaultLookAndFeelDecorated(true);
 		try {
 			UIManager.setLookAndFeel(new SubstanceGraphiteLookAndFeel());
-		} catch (Exception e) {
-			System.out.println("Substance Graphite failed to initialize");
+		} catch (UnsupportedLookAndFeelException e) {
+			logger.log(Logger.LVL_FATAL, "Failed to initialize GUI (CLAF): " + e.getMessage());
 		}
 	}
 }

@@ -3,15 +3,22 @@ package gutzufusss.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+
 import gutzufusss.gui.*;
+import gutzufusss.util.Logger;
 
 public class GUIController implements ActionListener {
 	private GUIView view;
 	private GUIModel model;
 	
-	public GUIController(GUIView view) {
-		this.view = view;
-		model = new GUIModel();
+	private Logger logger;
+	
+	public GUIController(Logger logger, GUIModel model) {
+		this.logger = logger;
+		this.model = model;
+		view = new GUIView(logger, this);
 	}
 
 	@Override
