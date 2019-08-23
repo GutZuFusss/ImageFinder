@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import gutzufusss.ImageDBController;
 import gutzufusss.Main;
 import gutzufusss.util.Logger;
 import net.sourceforge.lept4j.*;
@@ -20,8 +21,11 @@ public class OCRWrapper {
 	
 	private Main controller;
 	
-	public OCRWrapper(Main controller) {
+	private ImageDBController imgDB;
+	
+	public OCRWrapper(Main controller, ImageDBController imgDB) {
 		this.controller = controller;
+		this.imgDB = imgDB;
 	}
 
 	private BufferedImage openImg(String path) {
@@ -95,11 +99,11 @@ public class OCRWrapper {
 		int conf = TessAPI1.TessBaseAPIMeanTextConf(handle);
 		String result = TessAPI1.TessBaseAPIGetUTF8Text(handle).getString(0);
 		result = result.replaceAll("\\r\\n|\\r|\\n", " "); // screw linebreaks, srsly
-		if(result.length() > SQLWrapper.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not too sure anymore
-			result = result.substring(0, SQLWrapper.MAX_IMG_TEXT_LEN);
-			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + SQLWrapper.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
+		if(result.length() > imgDB.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not too sure anymore
+			result = result.substring(0, imgDB.MAX_IMG_TEXT_LEN);
+			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + imgDB.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
 		}
-		SQLWrapper.execSQL("INSERT INTO " + SQLWrapper.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" +
+		imgDB.execSQL("INSERT INTO " + imgDB.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" +
 					"'" + fileInfo.getName()			+ "', " +
 					"'" + fileInfo.getAbsolutePath()	+ "', " +
 					"'" + result						+ "', " +

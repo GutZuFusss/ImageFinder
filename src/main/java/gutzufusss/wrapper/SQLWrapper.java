@@ -9,11 +9,8 @@ import java.sql.Statement;
 import gutzufusss.util.Logger;
 
 public abstract class SQLWrapper {
-	// TODO: move some of this stuff zu inherited classes asap
-	public static final String TABLE_IMG = "image_data";
-	public static final int MAX_IMG_TEXT_LEN = 4096;
-	private static final String DB_PATH = "db/img_finder_data.db";
-	private static final int QUERY_TIMEOUT = 30;
+	protected 	static final String 	DB_PATH 			= "db/img_finder_data.db";
+	protected 	static final int 		QUERY_TIMEOUT 		= 30;
 
 	protected Connection connection = null;
 	protected Statement statement = null;
@@ -142,6 +139,4 @@ public abstract class SQLWrapper {
 
 	protected final boolean isStatementOpened() { return statement == null; }
 	// END_MISC_FUNCTIONS
-	
-	protected final void setLogger(Logger logger) { this.logger = logger; }
 }
