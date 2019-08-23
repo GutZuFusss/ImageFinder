@@ -1,6 +1,7 @@
 package gutzufusss;
 import java.sql.SQLException;
 
+import gutzufusss.util.Config;
 import gutzufusss.util.ImageManipulation;
 import gutzufusss.util.Logger;
 import gutzufusss.wrapper.OCRWrapper;
@@ -8,15 +9,15 @@ import gutzufusss.wrapper.SQLWrapper;
 
 public class Main {
 	private Logger logger;
+	private Config config;
 	private ImageDBController imgDB;
-	private ConfigDBController configDB;
 	private OCRWrapper ocrWrapper;
 	private ImageManipulation imgManipulator;
 
 	public Main() {
 		logger = new Logger();
+		config = new Config(logger);
 		imgDB = new ImageDBController(logger);
-		configDB = new ConfigDBController(logger);
 		ocrWrapper = new OCRWrapper(this, imgDB);
 		imgManipulator = new ImageManipulation(this);
 		
@@ -24,7 +25,7 @@ public class Main {
 		try {
 			SQLWrapper.checkDB(logger);
 			imgDB.tableCheck();
-			configDB.tableCheck();
+			config.getConfigDB().tableCheck();
 		} catch(SQLException e) {
 			getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 		}
