@@ -16,6 +16,7 @@ public class SQLWrapper {
 	private static final String DB_PATH = "db/img_finder_data.db";
 	private static final int QUERY_TIMEOUT = 30;
 	public static final String TABLE_IMG = "image_data";
+	public static final int MAX_IMG_TEXT_LEN = 4096;
 
 	private static Main controller;
 
@@ -83,7 +84,7 @@ public class SQLWrapper {
 		        "(id 			INTEGER PRIMARY KEY AUTOINCREMENT," +				// pkey
 		        " name			VARCHAR(256)," +									// max filename length is 255 (on win at least, haaaaah)
 		        " abs_path		VARCHAR(1024)," +									// absolute path to the file
-		        " ocr_data		VARCHAR(" + GlobalUtil.MAX_IMG_TEXT_LEN + ")," +	// text that was found in the image
+		        " ocr_data		VARCHAR(" + MAX_IMG_TEXT_LEN + ")," +	// text that was found in the image
 		        " confidence	INTEGER)");											// how sure the ocr was about the result
 		
 		controller.getLogger().log(Logger.LVL_INFO, "SQL table generation was successful.");
