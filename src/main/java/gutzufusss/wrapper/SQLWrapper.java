@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import gutzufusss.Main;
-import gutzufusss.util.GlobalUtil;
 import gutzufusss.util.Logger;
 
 public class SQLWrapper {

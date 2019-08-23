@@ -41,7 +41,7 @@ public class Logger {
 	}
 
 	public void log(int lvl, String msg) {
-		if(!GlobalUtil.DEBUG_MODE && lvl == LVL_DEBUG)
+		if(/*!DEBUG_MODE &&*/ lvl == LVL_DEBUG)
 			return;
 		
 		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack
@@ -61,8 +61,7 @@ public class Logger {
 			return;
 		}
 		
-		if(GlobalUtil.DEBUG_MODE)
-			System.out.println(logMsg);
+		System.out.println(logMsg);
 
 		// TODO: also print to gui once there is one
 	}

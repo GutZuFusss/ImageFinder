@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import gutzufusss.Main;
-import gutzufusss.util.GlobalUtil;
 import gutzufusss.util.Logger;
 import net.sourceforge.lept4j.*;
 import net.sourceforge.lept4j.util.LeptUtils;
