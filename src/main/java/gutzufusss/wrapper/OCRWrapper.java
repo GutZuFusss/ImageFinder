@@ -103,7 +103,7 @@ public class OCRWrapper {
 			result = result.substring(0, imgDB.MAX_IMG_TEXT_LEN);
 			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + imgDB.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
 		}
-		imgDB.execSQL("INSERT INTO " + imgDB.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" +
+		imgDB.execSQL("INSERT INTO " + imgDB.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" + // TODO: move this to the ImageDBController
 					"'" + fileInfo.getName()			+ "', " +
 					"'" + fileInfo.getAbsolutePath()	+ "', " +
 					"'" + result						+ "', " +

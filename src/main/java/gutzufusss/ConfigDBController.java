@@ -24,11 +24,21 @@ public class ConfigDBController extends SQLWrapper {
 		}
 		
 		logger.log(Logger.LVL_DEBUG, "Attempting to create table: " + TABLE_CONF);
-
-		execSQL("CREATE TABLE " + TABLE_CONF + " " + 
-				"(debug 		BOOLEAN DEFAULT " + config.defConf.debug			+ "," + // enables/disables debugging mode
-				" log_lvl		INTEGER DEFAULT " + config.defConf.logLevel			+ "," + // logger level
-				" crit_conf		INTEGER DEFAULT " + config.defConf.critConf			+ ")"); // critical confidence treshold
+		
+		// create our config table
+		execSQL("CREATE TABLE " + TABLE_CONF + " " +
+				"(config_name		VARCHAR PRIMARY KEY," +	// name of the configuration
+				" debug 			BOOLEAN," +				// enables/disables debugging mode
+				" log_lvl			INTEGER," +				// logger level
+				" crit_conf			INTEGER)");				// critical confidence treshold
+		
+		// insert a default entry
+		execSQL("INSERT INTO " + TABLE_CONF + "(config_name, debug, log_lvl, crit_conf) VALUES (" +
+				"'" +	"default_config"				+ "', " +
+						config.defConf.debug			+ ", " +
+						config.defConf.logLevel			+ ", " +
+						config.defConf.critConf			+ ");");
+		
 
 		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_CONF + "' was generated.");
 	}
