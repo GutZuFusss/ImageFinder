@@ -9,7 +9,7 @@ public class GUI {
 	public GUI(Main m) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new GUIView();
+				new GUIView(m);
 			}
 		});
 	}

@@ -7,6 +7,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import javax.swing.DefaultListModel;
+
 import org.apache.commons.io.FileUtils;
 
 public class Logger {
@@ -15,6 +17,8 @@ public class Logger {
 	public static final int LVL_ERROR = 4;
 	public static final int LVL_WARN = 8;
 	public static final int LVL_INFO = 16;
+	
+	public DefaultListModel<String> guiLogStream = new DefaultListModel<String>();
 
 	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
 
@@ -35,7 +39,7 @@ public class Logger {
 			calledFrom = calledFrom.split("\\.")[numDots]; // don't display the package path to the class... noone cares
 		calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
 
-		String logMsg = "{" + getErrLvlStrin(lvl) + "}" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
+		String logMsg = "[" + getErrLvlStrin(lvl) + "]" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
 		try {
 			FileUtils.writeStringToFile(logFile, logMsg + "\n", "UTF-8", true);
@@ -45,8 +49,7 @@ public class Logger {
 		}
 
 		System.out.println(logMsg);
-
-		// TODO: also print to gui once there is one
+		guiLogStream.addElement(logMsg);
 	}
 	
 	public static String getTimestamp(boolean logger) {
