@@ -17,9 +17,11 @@ public class Main {
 	public Main() {
 		logger = new Logger();
 		config = new Config(logger);
-		imgDB = new ImageDBController(logger);
+		imgDB = new ImageDBController();
 		ocrWrapper = new OCRWrapper(this, imgDB);
 		imgManipulator = new ImageManipulation(this);
+		
+		SQLWrapper.setLogger(logger);
 		
 		// database & table checks
 		try {

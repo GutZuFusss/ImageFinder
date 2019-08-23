@@ -11,8 +11,7 @@ public class ImageDBController extends SQLWrapper {
 	public static final int 	MAX_IMG_TEXT_LEN 	= 4096;
 	public static final String 	TABLE_IMG 			= "image_data";
 
-	public ImageDBController(Logger logger) {
-		this.logger = logger;
+	public ImageDBController() {
 	}
 
 	@Override

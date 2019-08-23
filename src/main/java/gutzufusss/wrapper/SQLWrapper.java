@@ -16,7 +16,7 @@ public abstract class SQLWrapper {
 
 	protected Connection connection = null;
 	protected Statement statement = null;
-	protected Logger logger;
+	protected static Logger logger;
 
 	public final ResultSet execQuerry(String query) {
 		createConAndStateIfNeeded();
@@ -81,6 +81,8 @@ public abstract class SQLWrapper {
 		statement = null;
 		connection = null;
 	}
+	
+	public static void setLogger(Logger l) { logger = l; }
 
 	protected final Connection createConnection() throws ClassNotFoundException, SQLException {
 		logger.log(Logger.LVL_DEBUG, "Creating database connection to: " + "jdbc:sqlite:" + DB_PATH);

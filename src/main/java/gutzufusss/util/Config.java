@@ -8,7 +8,7 @@ public class Config {
 
 	public Config(Logger logger) {
 		this.logger = logger;
-		configDB = new ConfigDBController(this, logger);
+		configDB = new ConfigDBController(this);
 	}
 	
 	public ConfigDBController getConfigDB() { return configDB; }

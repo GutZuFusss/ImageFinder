@@ -11,13 +11,13 @@ public class ConfigDBController extends SQLWrapper {
 	
 	private Config config;
 
-	public ConfigDBController(Config config, Logger logger) {
+	public ConfigDBController(Config config) {
 		this.config = config;
-		this.logger = logger;
 	}
 
 	@Override
 	public void tableCheck() throws SQLException {
+		logger.log(Logger.LVL_DEBUG, "Attempting to create table: " + TABLE_CONF);
 		if(execQuerry("SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLE_CONF + "';").next()) {
 			logger.log(Logger.LVL_DEBUG, "Found SQL table " + TABLE_CONF);
 			return;
