@@ -1,5 +1,6 @@
 package gutzufusss;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import gutzufusss.util.Config;
@@ -43,7 +44,8 @@ public class ConfigDBController extends SQLWrapper {
 		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_CONF + "' was generated.");
 	}
 	
-	public boolean loadConfig(String configName) {
+	public boolean loadConfig(String configName) { // TODO: continue haaaah
+		ResultSet result = execQuerry("SELECT * FROM " + TABLE_CONF + " WHERE config_name='" + configName + "';");
 		return false;
 	}
 }

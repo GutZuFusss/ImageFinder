@@ -35,8 +35,9 @@ public class Config {
 	}
 
 	private void initConfigVars() {
-		// TODO: call function in configDB that attempts to load the config or else just set curConf = defConf
-		
+		if(configDB.loadConfig("default_config"))
+			return;
+
 		curConf = defConf;
 	}
 }
