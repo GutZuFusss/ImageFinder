@@ -7,14 +7,16 @@ import gutzufusss.wrapper.OCRWrapper;
 import gutzufusss.wrapper.SQLWrapper;
 
 public class Main {
+	private Logger logger;
 	private ImageDBController imgDB;
+	private ConfigDBController configDB;
 	private OCRWrapper ocrWrapper;
 	private ImageManipulation imgManipulator;
-	private Logger logger;
 
 	public Main() {
 		logger = new Logger();
 		imgDB = new ImageDBController(logger);
+		configDB = new ConfigDBController(logger);
 		ocrWrapper = new OCRWrapper(this, imgDB);
 		imgManipulator = new ImageManipulation(this);
 		
