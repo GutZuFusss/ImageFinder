@@ -42,4 +42,9 @@ public class ConfigDBController extends SQLWrapper {
 
 		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_CONF + "' was generated.");
 	}
+	
+	public boolean loadConfig(String configName) {
+		return false;
+		
+	}
 }
