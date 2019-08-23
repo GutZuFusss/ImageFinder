@@ -19,11 +19,12 @@ public class OCRWrapper {
 	
 	private final int CRITICAL_CONF = 55;
 	
+	private Logger logger;
 	private Main controller;
-	
 	private ImageDBController imgDB;
 	
-	public OCRWrapper(Main controller, ImageDBController imgDB) {
+	public OCRWrapper(Logger logger, Main controller, ImageDBController imgDB) {
+		this.logger = logger;
 		this.controller = controller;
 		this.imgDB = imgDB;
 	}
@@ -34,7 +35,7 @@ public class OCRWrapper {
 		try {
 			img = ImageIO.read(f);
 		} catch(IOException e) {
-			controller.getLogger().log(Logger.LVL_ERROR, "I/O error: " + e.getMessage());
+			logger.log(Logger.LVL_ERROR, "I/O error: " + e.getMessage());
 		}
 
 		return img;
@@ -64,10 +65,10 @@ public class OCRWrapper {
 				getTextFromImg(child.getAbsolutePath(), handle);
 		}
 		else {
-			controller.getLogger().log(Logger.LVL_ERROR, "I/O error: The directory seems to be empty!");
+			logger.log(Logger.LVL_ERROR, "I/O error: The directory seems to be empty!");
 		}
 		
-		controller.getLogger().log(Logger.LVL_INFO, "Done scanning the directory '" + path + "'.");
+		logger.log(Logger.LVL_INFO, "Done scanning the directory '" + path + "'.");
 
 		TessAPI1.TessBaseAPIEnd(handle); // clean up
 	}
@@ -101,7 +102,7 @@ public class OCRWrapper {
 		result = result.replaceAll("\\r\\n|\\r|\\n", " "); // screw linebreaks, srsly
 		if(result.length() > imgDB.MAX_IMG_TEXT_LEN) { // i don't think it's possible to overflow varchar anyways, but i am not too sure anymore
 			result = result.substring(0, imgDB.MAX_IMG_TEXT_LEN);
-			controller.getLogger().log(Logger.LVL_WARN, "Result was longer than " + imgDB.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
+			logger.log(Logger.LVL_WARN, "Result was longer than " + imgDB.MAX_IMG_TEXT_LEN + ", theirfore it has been trimmed to that length.");
 		}
 		imgDB.execSQL("INSERT INTO " + imgDB.TABLE_IMG + " (name, abs_path, ocr_data, confidence) VALUES (" + // TODO: move this to the ImageDBController
 					"'" + fileInfo.getName()			+ "', " +
@@ -110,12 +111,12 @@ public class OCRWrapper {
 						  conf							+ ");");
 
 		if(conf < CRITICAL_CONF)
-			controller.getLogger().log(Logger.LVL_WARN, "Processed '" + imgPath + 
+			logger.log(Logger.LVL_WARN, "Processed '" + imgPath + 
 					"'. However, the confidence score was lower than " + CRITICAL_CONF + " (" + conf + 
 					") that's why you are seeing this warning.");
 
-		controller.getLogger().log(Logger.LVL_INFO, "'" + imgPath + "' done, confidence was " + conf + ".");
-		controller.getLogger().log(Logger.LVL_INFO, "Result: " + result);
+		logger.log(Logger.LVL_INFO, "'" + imgPath + "' done, confidence was " + conf + ".");
+		logger.log(Logger.LVL_INFO, "Result: " + result);
 
 		return result;
 	}

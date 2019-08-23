@@ -18,7 +18,7 @@ public class Main {
 		logger = new Logger();
 		config = new Config(logger);
 		imgDB = new ImageDBController();
-		ocrWrapper = new OCRWrapper(this, imgDB);
+		ocrWrapper = new OCRWrapper(logger, this, imgDB);
 		imgManipulator = new ImageManipulation(logger);
 
 		SQLWrapper.setLogger(logger);
