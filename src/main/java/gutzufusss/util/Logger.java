@@ -22,22 +22,7 @@ public class Logger {
 
 	public Logger() {
 		logFile = new File(LOG_PATH);
-		if(!logFile.getParentFile().exists())
-			logFile.getParentFile().mkdir();
-
-		// now it is safe to create the current's session logfile
-		try {
-			if(!logFile.exists()) {
-				if(logFile.createNewFile()) {
-					log(LVL_INFO, "Log file was created.");
-				}
-			}
-		} catch(IOException e) {
-			if(e instanceof IOException) {
-				log(LVL_FATAL, "Something went horribly wrong (I/O).");
-				e.printStackTrace(); // kinda nonsense to log something here...
-			}
-		}
+		openLogFile();
 	}
 
 	public void log(int lvl, String msg) {
@@ -63,6 +48,18 @@ public class Logger {
 
 		// TODO: also print to gui once there is one
 	}
+	
+	public static String getTimestamp(boolean logger) {
+		DateTimeFormatter formatter = null;
+		if(logger)
+			formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH-mm-ss").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
+		else
+			formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
+
+		return formatter.format(Instant.now());
+	}
+
+	public static String getTimestamp() { return getTimestamp(false); }
 
 	private String getErrLvlStrin(int lvl) {
 		switch(lvl){
@@ -81,16 +78,23 @@ public class Logger {
 			return "UNKN";
 		} 
 	}
+	
+	private void openLogFile() {
+		if(!logFile.getParentFile().exists())
+			logFile.getParentFile().mkdir();
 
-	public static String getTimestamp(boolean logger) {
-		DateTimeFormatter formatter = null;
-		if(logger)
-			formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH-mm-ss").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
-		else
-			formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS").withLocale(Locale.getDefault()).withZone(ZoneId.systemDefault());
-
-		return formatter.format(Instant.now());
+		// now it is safe to create the current's session logfile
+		try {
+			if(!logFile.exists()) {
+				if(logFile.createNewFile()) {
+					log(LVL_INFO, "Log file was created.");
+				}
+			}
+		} catch(IOException e) {
+			if(e instanceof IOException) {
+				log(LVL_FATAL, "Something went horribly wrong (I/O).");
+				e.printStackTrace(); // kinda nonsense to log something here...
+			}
+		}
 	}
-
-	public static String getTimestamp() { return getTimestamp(false); }
 }
