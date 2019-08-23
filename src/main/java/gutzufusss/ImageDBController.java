@@ -40,6 +40,8 @@ public class ImageDBController extends SQLWrapper {
 			logger.log(Logger.LVL_DEBUG, "Found SQL table " + TABLE_IMG);
 			return true;
 		}
+		
+		logger.log(Logger.LVL_DEBUG, "Attempting to create table: " + TABLE_IMG);
 
 		execSQL("CREATE TABLE " + TABLE_IMG + " " +
 		        "(id 			INTEGER PRIMARY KEY AUTOINCREMENT," +				// pkey
@@ -48,7 +50,7 @@ public class ImageDBController extends SQLWrapper {
 		        " ocr_data		VARCHAR(" + MAX_IMG_TEXT_LEN + ")," +	// text that was found in the image
 		        " confidence	INTEGER)");											// how sure the ocr was about the result
 		
-		logger.log(Logger.LVL_INFO, "SQL table generation was successful.");
+		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_IMG + "' was generated.");
 
 		return true;
 	}
