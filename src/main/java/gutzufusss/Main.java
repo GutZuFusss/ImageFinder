@@ -19,7 +19,7 @@ public class Main {
 		config = new Config(logger);
 		imgDB = new ImageDBController();
 		ocrWrapper = new OCRWrapper(this, imgDB);
-		imgManipulator = new ImageManipulation(this);
+		imgManipulator = new ImageManipulation(logger);
 
 		SQLWrapper.setLogger(logger);
 		
@@ -29,12 +29,12 @@ public class Main {
 			imgDB.tableCheck();
 			config.getConfigDB().tableCheck();
 		} catch(SQLException e) {
-			getLogger().log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
+			logger.log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 		}
 
 		new GUI(logger, this);
 
-		getLogger().log(Logger.LVL_INFO, "ImageFinder initialized successfully!");
+		logger.log(Logger.LVL_INFO, "ImageFinder initialized successfully!");
 
 		//ocrWrapper.scanDirectory("test_images");
 	}
@@ -42,8 +42,6 @@ public class Main {
 	public OCRWrapper getOCR() { return ocrWrapper; }
 
 	public ImageManipulation getIMGManipulator() { return imgManipulator; }
-
-	public Logger getLogger() { return logger; }
 
 	public static void main(String[] args) { // entry point
 		new Main();
