@@ -10,13 +10,13 @@ import java.util.Locale;
 import org.apache.commons.io.FileUtils;
 
 public class Logger {
-	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
-
-	public static final int LVL_INFO = 1;
-	public static final int LVL_WARN = 2;
+	public static final int LVL_DEBUG = 1;
+	public static final int LVL_FATAL = 2;
 	public static final int LVL_ERROR = 4;
-	public static final int LVL_FATAL = 8;
-	public static final int LVL_DEBUG = 16;
+	public static final int LVL_WARN = 8;
+	public static final int LVL_INFO = 16;
+	
+	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
 
 	private File logFile;
 

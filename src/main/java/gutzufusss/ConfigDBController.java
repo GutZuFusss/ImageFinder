@@ -2,13 +2,17 @@ package gutzufusss;
 
 import java.sql.SQLException;
 
+import gutzufusss.util.Config;
 import gutzufusss.util.Logger;
 import gutzufusss.wrapper.SQLWrapper;
 
 public class ConfigDBController extends SQLWrapper {
 	public static final String TABLE_CONF = "config_data";
+	
+	private Config config;
 
-	public ConfigDBController(Logger logger) {
+	public ConfigDBController(Config config, Logger logger) {
+		this.config = config;
 		this.logger = logger;
 	}
 
@@ -22,9 +26,9 @@ public class ConfigDBController extends SQLWrapper {
 		logger.log(Logger.LVL_DEBUG, "Attempting to create table: " + TABLE_CONF);
 
 		execSQL("CREATE TABLE " + TABLE_CONF + " " + 
-				"(debug 		BOOLEAN," + 			// enables/disables debugging mode
-				" log_lvl		INTEGER," + 			// logger level
-				" crit_conf		INTEGER)"); 			// critical confidence treshold
+				"(debug 		BOOLEAN DEFAULT " + config.defConf.debug			+ "," + // enables/disables debugging mode
+				" log_lvl		INTEGER DEFAULT " + config.defConf.logLevel			+ "," + // logger level
+				" crit_conf		INTEGER DEFAULT " + config.defConf.critConf			+ ")"); // critical confidence treshold
 
 		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_CONF + "' was generated.");
 	}

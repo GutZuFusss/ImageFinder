@@ -8,8 +8,16 @@ public class Config {
 
 	public Config(Logger logger) {
 		this.logger = logger;
-		configDB = new ConfigDBController(logger);
+		configDB = new ConfigDBController(this, logger);
 	}
 	
 	public ConfigDBController getConfigDB() { return configDB; }
+	
+	public final class DefaultConfig {
+		public final boolean		debug		= false;
+		public final int			logLevel	= Logger.LVL_INFO;
+		public final int			critConf	= 55;
+	}
+	
+	public DefaultConfig defConf = new DefaultConfig();
 }
