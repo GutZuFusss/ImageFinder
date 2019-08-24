@@ -70,7 +70,8 @@ public class GUIModel {
 	}
 	
 	public void logMessageAdded() {
-		guiCtrl.handleAutoScroll();
+		if(config.curConfig.logAutoScroll)
+			guiCtrl.handleAutoScroll();
 	}
 
 	public Config getConfig() { return config; }

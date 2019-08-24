@@ -8,6 +8,7 @@ public class Config {
 		public String		configName;
 		public boolean		debug;
 		public int			logLevel;
+		public boolean			logAutoScroll;
 		public int			critConf;
 
 		public boolean		flGrayscale;
@@ -38,6 +39,7 @@ public class Config {
 		defConfig.configName	= "default_config";
 		defConfig.debug			= /*false*/true;
 		defConfig.logLevel		= Logger./*LVL_INFO*/LVL_DEBUG;
+		defConfig.logAutoScroll = true;
 		defConfig.critConf		= 55;
 
 		defConfig.flGrayscale	= true;
