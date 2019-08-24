@@ -35,6 +35,8 @@ import java.awt.event.ItemEvent;
 
 @SuppressWarnings("serial")
 public class GUIView extends JFrame {
+	public JTextField dirPathTF;
+	
 	private Logger logger;
 	private GUIController guiCtrl;
 
@@ -79,11 +81,11 @@ public class GUIView extends JFrame {
 		lblTypeThePath.setAutoscrolls(true);
 		getContentPane().add(lblTypeThePath);
 
-		JTextField textField = new JTextField();
-		textField.setBounds(9, 31, 376, 22);
-		getContentPane().add(textField);
-		textField.setText(System.getProperty("user.home") + "\\Pictures"); // preset the tf to something nice
-		textField.setColumns(10);
+		dirPathTF = new JTextField();
+		dirPathTF.setBounds(9, 31, 376, 22);
+		getContentPane().add(dirPathTF);
+		dirPathTF.setText(System.getProperty("user.home") + "\\Pictures"); // preset the tf to something nice
+		dirPathTF.setColumns(10);
 
 		JList<String> list = new JList<String>(logger.guiLogStream);
 		list.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));

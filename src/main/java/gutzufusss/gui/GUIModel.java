@@ -1,5 +1,7 @@
 package gutzufusss.gui;
 
+import javax.swing.JFileChooser;
+
 import gutzufusss.Main;
 import gutzufusss.util.Config;
 import gutzufusss.util.Logger;
@@ -16,11 +18,21 @@ public class GUIModel {
 		controller = m;
 		guiCtrl = new GUIController(logger, this);
 	}
-	
+
 	public void userBrowsePath() {
-		// TODO: handle
+		// open dialog
+		JFileChooser fc = new JFileChooser();
+		fc.setDialogTitle("Select the directory you want to scan");
+		fc.setDialogType(JFileChooser.OPEN_DIALOG);
+		fc.setCurrentDirectory(new java.io.File(".")); // start at application current directory
+		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int returnVal = fc.showOpenDialog(null);
+		if(returnVal == JFileChooser.APPROVE_OPTION) {
+			String selectedDir = fc.getSelectedFile().getAbsolutePath();
+			guiCtrl.setDirPath(selectedDir);
+		}
 	}
-	
+
 	public void updateLogLevel(String selectedItem) {
 		int newLogLvl = Integer.parseInt(selectedItem.split(":")[0]);
 		config.curConf.logLevel = newLogLvl;

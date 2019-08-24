@@ -41,4 +41,6 @@ public class GUIController implements ActionListener, ItemListener {
 		if(e.getSource().toString().contains("loggingLevel") && e.getStateChange() == ItemEvent.SELECTED)
 			model.updateLogLevel(e.getItem().toString());
 	}
+	
+	public void setDirPath(String p) { view.dirPathTF.setText(p); }
 }
