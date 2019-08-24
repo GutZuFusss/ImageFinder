@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import gutzufusss.ImageDBController;
 import gutzufusss.Main;
+import gutzufusss.util.Config;
 import gutzufusss.util.Logger;
 import net.sourceforge.lept4j.*;
 import net.sourceforge.lept4j.util.LeptUtils;
@@ -17,17 +18,16 @@ import net.sourceforge.tess4j.ITessAPI.TessBaseAPI;
 
 public class OCRWrapper implements Runnable {
 	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>=%ß";
-	
-	private final int CRITICAL_CONF = 55;
-	
+
 	private Logger logger;
+	private Config config;
 	private Main controller;
 	private ImageDBController imgDB;
 	private String scanPath;
 	
 	private String[] allowedExtensions = {"jpg", "png", "tiff", "bmp", "pnm", "gif", "ps", "pdf", "webp"};
 	
-	public OCRWrapper(Logger logger, Main controller, ImageDBController imgDB, String scanPath) {
+	public OCRWrapper(Logger logger, Config config, Main controller, ImageDBController imgDB, String scanPath) {
 		this.logger = logger;
 		this.controller = controller;
 		this.imgDB = imgDB;
@@ -116,10 +116,9 @@ public class OCRWrapper implements Runnable {
 					"'" + result						+ "', " +
 						  conf							+ ");");
 
-		if(conf < CRITICAL_CONF)
+		if(conf < config.curConf.critConf)
 			logger.log(Logger.LVL_WARN, "Processed '" + imgPath + 
-					"'. However, the confidence score was lower than " + CRITICAL_CONF + " (" + conf + 
-					") that's why you are seeing this warning.");
+					"'. However, the confidence score was lower than " + config.curConf.critConf + " (" + conf + ").");
 
 		logger.log(Logger.LVL_INFO, "'" + imgPath + "' done, confidence was " + conf + ".");
 		logger.log(Logger.LVL_INFO, "Result: " + result);

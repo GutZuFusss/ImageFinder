@@ -46,7 +46,7 @@ public class GUIModel {
 	public void updateCritConf(int lvl) { config.curConf.critConf = lvl; }
 	public void startScanning(String path) {
 		if(new File(path).exists()) {
-			OCRWrapper myRunnable = new OCRWrapper(logger, controller, controller.getImgDB(), path);
+			OCRWrapper myRunnable = new OCRWrapper(logger, config, controller, controller.getImgDB(), path);
 	        Thread t = new Thread(myRunnable);
 	        t.start();
 		}
