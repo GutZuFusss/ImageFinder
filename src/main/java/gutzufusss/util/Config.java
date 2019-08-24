@@ -38,6 +38,8 @@ public class Config {
 		if(configDB.loadConfig("default_config"))
 			return;
 
+		logger.log(Logger.LVL_WARN, "Could not load configuration, using standard values.");
+
 		curConf = defConf;
 	}
 }

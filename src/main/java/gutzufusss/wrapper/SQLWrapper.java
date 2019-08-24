@@ -60,11 +60,14 @@ public abstract class SQLWrapper {
 					logger.log(Logger.LVL_FATAL, "Could not open nor create database!!! Shutting down.");
 				}
 			}
+			else 
+				logger.log(Logger.LVL_INFO, "Database system is up and running.");
+
 		} catch(IOException e) {
 			logger.log(Logger.LVL_FATAL, "I/O error occured while creating database: " + e.getMessage());
 		}
 	}
-	
+
 	public abstract void tableCheck() throws SQLException;
 
 	// START_MISC_FUNCTIONS

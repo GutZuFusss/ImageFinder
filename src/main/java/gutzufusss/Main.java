@@ -22,7 +22,7 @@ public class Main {
 		imgManipulator = new ImageManipulation(logger);
 
 		SQLWrapper.setLogger(logger);
-		
+
 		// database & table checks
 		try {
 			SQLWrapper.checkDB();
@@ -32,9 +32,9 @@ public class Main {
 			logger.log(Logger.LVL_ERROR, "SQL-Error: " + ((SQLException)e).getErrorCode() + " - " + e.getMessage());
 		}
 
-		new GUI(logger, this);
+		new GUI(logger, config, this);
 
-		logger.log(Logger.LVL_INFO, "ImageFinder initialized successfully!");
+		logger.log(Logger.LVL_INFO, "ImageFinder initialized completely successfully!");
 
 		//ocrWrapper.scanDirectory("test_images");
 	}

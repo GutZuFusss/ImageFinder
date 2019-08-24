@@ -26,6 +26,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
 import javax.swing.JRadioButton;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 @SuppressWarnings("serial")
 public class GUIView extends JFrame {
@@ -122,8 +128,10 @@ public class GUIView extends JFrame {
 		panel_1.add(lblLoggingLvl);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.addItemListener(guiCtrl);
 		comboBox.setMaximumRowCount(5);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"16:INFO", "8:WARN", "4:ERROR", "2:FATAL", "1:DEBUG"}));
+		comboBox.setName("loggingLevel");
 		comboBox.setToolTipText("The lower the number the less logging messages you will get.");
 		comboBox.setBounds(79, 8, 73, 20);
 		panel_1.add(comboBox);

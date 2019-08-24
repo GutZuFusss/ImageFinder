@@ -2,6 +2,8 @@ package gutzufusss.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -9,7 +11,7 @@ import javax.swing.Action;
 import gutzufusss.gui.*;
 import gutzufusss.util.Logger;
 
-public class GUIController implements ActionListener {
+public class GUIController implements ActionListener, ItemListener {
 	private GUIView view;
 	private GUIModel model;
 	
@@ -22,7 +24,21 @@ public class GUIController implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()) {
+		case "Browse...":
+			model.userBrowsePath();
+			break;
+		/*case "1":
+			return "WARN ";
+		case LVL_ERROR:
+			break;*/
+		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if(e.getSource().toString().contains("loggingLevel") && e.getStateChange() == ItemEvent.SELECTED)
+			model.updateLogLevel(e.getItem().toString());
 	}
 }

@@ -30,7 +30,7 @@ public class ConfigDBController extends SQLWrapper {
 		execSQL("CREATE TABLE " + TABLE_CONF + " " +
 				"(config_name		VARCHAR PRIMARY KEY," +	// name of the configuration
 				" debug 			BOOLEAN," +				// enables/disables debugging mode
-				" log_lvl			INTEGER," +				// logger level
+				" log_lvl			INTEGER," +				// logging level
 				" crit_conf			INTEGER)");				// critical confidence treshold
 		
 		// insert a default entry

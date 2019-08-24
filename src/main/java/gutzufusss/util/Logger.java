@@ -18,11 +18,11 @@ public class Logger {
 	public static final int LVL_WARN = 8;
 	public static final int LVL_INFO = 16;
 	
-	public DefaultListModel<String> guiLogStream = new DefaultListModel<String>();
+	public DefaultListModel<String> guiLogStream = new DefaultListModel<String>(); // used in GUIView to update JList
 
 	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
-
 	private File logFile;
+
 
 	public Logger() {
 		logFile = new File(LOG_PATH);
@@ -65,7 +65,7 @@ public class Logger {
 	public static String getTimestamp() { return getTimestamp(false); }
 
 	private String getErrLvlStrin(int lvl) {
-		switch(lvl){
+		switch(lvl) {
 		case LVL_INFO:
 			return "INFO ";
 		case LVL_WARN:
@@ -79,7 +79,7 @@ public class Logger {
 		default:
 			log(LVL_ERROR, "Encountered unknown error level.");
 			return "UNKN";
-		} 
+		}
 	}
 	
 	private void openLogFile() {
