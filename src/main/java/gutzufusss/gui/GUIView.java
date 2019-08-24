@@ -121,7 +121,7 @@ public class GUIView extends JFrame {
 		panel_2.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(406, 0, 287, 234);
+		tabbedPane.setBounds(406, 0, 195, 234);
 		getContentPane().add(tabbedPane);
 		
 		JPanel panel_1 = new JPanel();
@@ -155,7 +155,7 @@ public class GUIView extends JFrame {
 		rdbtnOn.addItemListener(guiCtrl);
 		rdbtnOn.setSelected(guiCtrl.getConfig().curConfig.debug);
 		rdbtnOn.setName("debuggingActive");
-		rdbtnOn.setBounds(107, 40, 78, 23);
+		rdbtnOn.setBounds(106, 37, 78, 23);
 		panel_1.add(rdbtnOn);
 		
 		JLabel lblCritConfidence = new JLabel("Crit. confidence:");
@@ -175,29 +175,29 @@ public class GUIView extends JFrame {
 		tabbedPane.addTab("Pre-processing", null, panel_3, null);
 		panel_3.setLayout(null);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Convert to grayscale");
-		chckbxNewCheckBox.setBounds(6, 31, 148, 23);
-		panel_3.add(chckbxNewCheckBox);
+		JCheckBox chckbxGrayscale = new JCheckBox("Convert to grayscale");
+		chckbxGrayscale.setBounds(6, 31, 148, 23);
+		panel_3.add(chckbxGrayscale);
 		
-		JCheckBox chckbxConvertToBinary = new JCheckBox("Convert to binary");
-		chckbxConvertToBinary.setBounds(6, 57, 128, 23);
-		panel_3.add(chckbxConvertToBinary);
+		JCheckBox chckbxBinary = new JCheckBox("Convert to binary");
+		chckbxBinary.setBounds(6, 57, 128, 23);
+		panel_3.add(chckbxBinary);
 		
-		JCheckBox chckbxAddBorder = new JCheckBox("Add border");
-		chckbxAddBorder.setBounds(6, 109, 97, 23);
-		panel_3.add(chckbxAddBorder);
+		JCheckBox chckbxBorder = new JCheckBox("Add border");
+		chckbxBorder.setBounds(6, 109, 97, 23);
+		panel_3.add(chckbxBorder);
 		
-		JCheckBox chckbxSmoothImage = new JCheckBox("Smooth (bileteral filter)");
-		chckbxSmoothImage.setBounds(6, 83, 148, 23);
-		panel_3.add(chckbxSmoothImage);
+		JCheckBox chckbxSmooth = new JCheckBox("Smooth (bileteral filter)");
+		chckbxSmooth.setBounds(6, 83, 148, 23);
+		panel_3.add(chckbxSmooth);
 		
-		JCheckBox chckbxIncreaseContrast = new JCheckBox("Increase contrast");
-		chckbxIncreaseContrast.setBounds(6, 161, 128, 23);
-		panel_3.add(chckbxIncreaseContrast);
+		JCheckBox chckbxContrast = new JCheckBox("Increase contrast");
+		chckbxContrast.setBounds(6, 161, 128, 23);
+		panel_3.add(chckbxContrast);
 		
-		JCheckBox chckbxStrokeWidthTransformation = new JCheckBox("Stroke width transformation");
-		chckbxStrokeWidthTransformation.setBounds(6, 135, 166, 23);
-		panel_3.add(chckbxStrokeWidthTransformation);
+		JCheckBox chckbxSWT = new JCheckBox("Stroke width transformation");
+		chckbxSWT.setBounds(6, 135, 166, 23);
+		panel_3.add(chckbxSWT);
 		
 		JLabel lblPreprocessingFilters = new JLabel("Pre-processing filters");
 		lblPreprocessingFilters.setFont(new Font("Tahoma", Font.BOLD, 12));
