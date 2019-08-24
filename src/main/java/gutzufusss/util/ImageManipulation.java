@@ -92,11 +92,11 @@ public class ImageManipulation {
 	public BufferedImage toGrayscale(BufferedImage img) {
 		return ImageHelper.convertImageToGrayscale(img);
 	}
-	
+
 	public BufferedImage toBinary(BufferedImage img) {
 		return ImageHelper.convertImageToBinary(img);
 	}
-	
+
 	public BufferedImage addBorder(BufferedImage img, int sz) {
 		Mat imgMat = imgToMat(img);
 		Mat newMat = new Mat(imgMat.rows(), imgMat.cols(), imgMat.type());

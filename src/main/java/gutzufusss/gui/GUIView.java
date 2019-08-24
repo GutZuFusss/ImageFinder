@@ -34,6 +34,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class GUIView extends JFrame {
@@ -169,6 +170,39 @@ public class GUIView extends JFrame {
 		spinner.setToolTipText("You will get a warning if the confidence level of an image is below this value. 100 is maximum and 0 minimum.");
 		spinner.setBounds(112, 67, 73, 20);
 		panel_1.add(spinner);
+		
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("Pre-processing", null, panel_3, null);
+		panel_3.setLayout(null);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Convert to grayscale");
+		chckbxNewCheckBox.setBounds(6, 31, 148, 23);
+		panel_3.add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxConvertToBinary = new JCheckBox("Convert to binary");
+		chckbxConvertToBinary.setBounds(6, 57, 128, 23);
+		panel_3.add(chckbxConvertToBinary);
+		
+		JCheckBox chckbxAddBorder = new JCheckBox("Add border");
+		chckbxAddBorder.setBounds(6, 109, 97, 23);
+		panel_3.add(chckbxAddBorder);
+		
+		JCheckBox chckbxSmoothImage = new JCheckBox("Smooth (bileteral filter)");
+		chckbxSmoothImage.setBounds(6, 83, 148, 23);
+		panel_3.add(chckbxSmoothImage);
+		
+		JCheckBox chckbxIncreaseContrast = new JCheckBox("Increase contrast");
+		chckbxIncreaseContrast.setBounds(6, 161, 128, 23);
+		panel_3.add(chckbxIncreaseContrast);
+		
+		JCheckBox chckbxStrokeWidthTransformation = new JCheckBox("Stroke width transformation");
+		chckbxStrokeWidthTransformation.setBounds(6, 135, 166, 23);
+		panel_3.add(chckbxStrokeWidthTransformation);
+		
+		JLabel lblPreprocessingFilters = new JLabel("Pre-processing filters");
+		lblPreprocessingFilters.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPreprocessingFilters.setBounds(10, 10, 144, 14);
+		panel_3.add(lblPreprocessingFilters);
 		
 		JLabel lblNewLabel = new JLabel("Hint: Some things have tooltips. It is sometimes worth it to hover over");
 		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
