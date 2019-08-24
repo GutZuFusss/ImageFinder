@@ -83,12 +83,19 @@ public class OCRWrapper implements Runnable {
 		BufferedImage processingImg = openImg(imgPath);
 
 		// image preprocessing (maybe change order a bit)
-		processingImg = controller.getIMGManipulator().toGrayscale(processingImg); //only this = 549
-		//processingImg = ImageHelper.convertImageToBinary(processingImg); // this doesn't help much since we will often be facing complex backgrounds
-		processingImg = controller.getIMGManipulator().smoothImg(processingImg);
-		processingImg = controller.getIMGManipulator().addBorder(processingImg, 6);
-		//processingImg = manager.getIMGManipulator().performSWT(processingImg);
-		//processingImg = manager.getIMGManipulator().changeContrast(processingImg, 0.1f);
+		if(config.curConfig.flGrayscale)
+			processingImg = controller.getIMGManipulator().toGrayscale(processingImg); //only this = 549
+		if(config.curConfig.flBinary)
+			processingImg = controller.getIMGManipulator().toBinary(processingImg); // this doesn't help much on complex backgrounds
+		if(config.curConfig.flSmooth)
+			processingImg = controller.getIMGManipulator().smoothImg(processingImg);
+		if(config.curConfig.flBorder)
+			processingImg = controller.getIMGManipulator().addBorder(processingImg, 6);
+		if(config.curConfig.flSWT)
+			processingImg = controller.getIMGManipulator().performSWT(processingImg);
+		if(config.curConfig.flContrast)
+			processingImg = controller.getIMGManipulator().changeContrast(processingImg, 0.1f);
+
 		// finalize the image
 		Pix pix = controller.getIMGManipulator().img2Pix(processingImg);
 		pix.xres = processingImg.getHeight(); // converting to pix somehow breaks the resolution
