@@ -88,10 +88,7 @@ public class OCRWrapper implements Runnable {
 		processingImg = controller.getIMGManipulator().smoothImg(processingImg);
 		processingImg = controller.getIMGManipulator().addBorder(processingImg, 6);
 		//processingImg = manager.getIMGManipulator().performSWT(processingImg);
-//		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
-//		processingImg = manager.getIMGManipulator().changeContrast(processingImg, 0.1f);
-//		JOptionPane.showInputDialog(null, "lel", "diss", JOptionPane.QUESTION_MESSAGE, new ImageIcon(processingImg), null, ""); // DEBUG
-
+		//processingImg = manager.getIMGManipulator().changeContrast(processingImg, 0.1f);
 		// finalize the image
 		Pix pix = controller.getIMGManipulator().img2Pix(processingImg);
 		pix.xres = processingImg.getHeight(); // converting to pix somehow breaks the resolution

@@ -9,11 +9,18 @@ public class Config {
 		public boolean		debug;
 		public int			logLevel;
 		public int			critConf;
+
+		public boolean		flGrayscale;
+		public boolean		flBinary;
+		public boolean		flSmooth;
+		public boolean		flBorder;
+		public boolean		flSWT;
+		public boolean		flContrast;
 	}
 	public ConfigVariables curConfig = new ConfigVariables(); // live vars
 	public ConfigVariables defConfig = new ConfigVariables(); // default vars
 	/* ################ config variables ################ */
-	
+
 	private Logger logger;
 	private ConfigDBController configDB;
 
@@ -27,11 +34,18 @@ public class Config {
 	
 	public ConfigDBController getConfigDB() { return configDB; }
 	
-	public void setDefaultConf (){
-		defConfig.configName		= "default_config";
+	public void setDefaultConf () {
+		defConfig.configName	= "default_config";
 		defConfig.debug			= false;
 		defConfig.logLevel		= Logger.LVL_INFO;
 		defConfig.critConf		= 55;
+		
+		defConfig.flGrayscale	= true;
+		defConfig.flBinary		= false;
+		defConfig.flSmooth		= true;
+		defConfig.flBorder		= true;
+		defConfig.flSWT			= false;
+		defConfig.flContrast	= false;
 	}
 
 	private void initConfigVars() {

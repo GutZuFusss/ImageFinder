@@ -81,7 +81,7 @@ public class ImageManipulation {
 	
 	public BufferedImage performSWT(BufferedImage img) {
 		FImage fImg = ImageUtilities.createFImage(img);
-		StrokeWidthTransform swt = new StrokeWidthTransform(false, new CannyEdgeDetector());
+		StrokeWidthTransform swt = new StrokeWidthTransform(true, new CannyEdgeDetector());
 		swt.processImage(fImg);
 		fImg = StrokeWidthTransform.normaliseImage(fImg);
 		DisplayUtilities.display(fImg);
