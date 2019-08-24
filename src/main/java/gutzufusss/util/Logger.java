@@ -12,11 +12,12 @@ import javax.swing.DefaultListModel;
 import org.apache.commons.io.FileUtils;
 
 public class Logger {
+	public static final int LVL_OFF = 0;
 	public static final int LVL_FATAL = 1;
 	public static final int LVL_ERROR = 2;
-	public static final int LVL_WARN = 4;
-	public static final int LVL_INFO = 8;
-	public static final int LVL_DEBUG = 16;
+	public static final int LVL_WARN = 3;
+	public static final int LVL_INFO = 4;
+	public static final int LVL_DEBUG = 5;
 	
 	public DefaultListModel<String> guiLogStream = new DefaultListModel<String>(); // used in GUIView to update JList
 
@@ -40,7 +41,7 @@ public class Logger {
 			calledFrom = calledFrom.split("\\.")[numDots]; // don't display the package path to the class... noone cares
 		calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
 
-		String logMsg = "[" + getErrLvlStrin(lvl) + "]" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
+		String logMsg = "[" + getErrLvlString(lvl) + "]" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
 		try {
 			FileUtils.writeStringToFile(logFile, logMsg + "\n", "UTF-8", true);
@@ -65,7 +66,7 @@ public class Logger {
 
 	public static String getTimestamp() { return getTimestamp(false); }
 
-	private String getErrLvlStrin(int lvl) {
+	public String getErrLvlString(int lvl) {
 		switch(lvl) {
 		case LVL_INFO:
 			return "INFO ";
@@ -77,6 +78,8 @@ public class Logger {
 			return "FATAL";
 		case LVL_DEBUG:
 			return "DEBUG";
+		case LVL_OFF:
+			return "OFF";
 		default:
 			log(LVL_ERROR, "Encountered unknown error level.");
 			return "UNKN";

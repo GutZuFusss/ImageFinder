@@ -46,4 +46,6 @@ public class GUIModel {
 		else
 			logger.log(Logger.LVL_ERROR, "The selected directory does not seem to exist.");
 	}
+	
+	public Config getConfig() { return config; }
 }

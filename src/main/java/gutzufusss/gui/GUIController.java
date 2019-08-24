@@ -9,6 +9,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import gutzufusss.gui.*;
+import gutzufusss.util.Config;
 import gutzufusss.util.Logger;
 
 public class GUIController implements ActionListener, ItemListener {
@@ -44,4 +45,6 @@ public class GUIController implements ActionListener, ItemListener {
 	}
 	
 	public void setDirPath(String p) { view.dirPathTF.setText(p); }
+	
+	public Config getConfig() { return model.getConfig(); }
 }

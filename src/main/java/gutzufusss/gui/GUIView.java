@@ -132,9 +132,12 @@ public class GUIView extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.addItemListener(guiCtrl);
-		comboBox.setMaximumRowCount(5);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"16:INFO", "8:WARN", "4:ERROR", "2:FATAL", "1:DEBUG"}));
-		//comboBox.setSelectedIndex(anIndex);
+		comboBox.setMaximumRowCount(6);
+		String[] logLvls = new String[Logger.LVL_DEBUG + 1];
+		for(int i = 0; i <= Logger.LVL_DEBUG; i++)
+			logLvls[i] = Integer.toString(i) + ":" + logger.getErrLvlString(i);
+		comboBox.setModel(new DefaultComboBoxModel(logLvls));
+		comboBox.setSelectedIndex(guiCtrl.getConfig().curConf.logLevel);
 		comboBox.setName("loggingLevel");
 		comboBox.setToolTipText("The lower the number the less logging messages you will get.");
 		comboBox.setBounds(79, 8, 73, 20);
