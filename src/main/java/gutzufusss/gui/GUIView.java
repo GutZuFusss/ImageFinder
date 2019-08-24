@@ -152,6 +152,7 @@ public class GUIView extends JFrame {
 		panel_1.add(lblDebug);
 		
 		JRadioButton rdbtnOn = new JRadioButton("Activated");
+		rdbtnOn.setToolTipText("1337 haxxors only");
 		rdbtnOn.addItemListener(guiCtrl);
 		rdbtnOn.setSelected(guiCtrl.getConfig().curConfig.debug);
 		rdbtnOn.setName("debuggingActive");
@@ -176,28 +177,46 @@ public class GUIView extends JFrame {
 		panel_3.setLayout(null);
 		
 		JCheckBox chckbxGrayscale = new JCheckBox("Convert to grayscale");
+		chckbxGrayscale.addItemListener(guiCtrl);
+		chckbxGrayscale.setName("flGrayscale");
+		chckbxGrayscale.setToolTipText("This should only be deactivated if you really know what you are doing. Will make the image contain only shades of gray.");
 		chckbxGrayscale.setBounds(6, 31, 148, 23);
 		panel_3.add(chckbxGrayscale);
 		
 		JCheckBox chckbxBinary = new JCheckBox("Convert to binary");
+		chckbxBinary.addItemListener(guiCtrl);
+		chckbxBinary.setName("flBinary");
+		chckbxBinary.setToolTipText("Image will be only black and white, no gray. Works good if pictures are expected to ONLY contain text.");
 		chckbxBinary.setBounds(6, 57, 128, 23);
 		panel_3.add(chckbxBinary);
 		
 		JCheckBox chckbxBorder = new JCheckBox("Add border");
+		chckbxBorder.addItemListener(guiCtrl);
+		chckbxBorder.setName("flBorder");
+		chckbxBorder.setToolTipText("Adds a border around the image. Should be active in most cases.");
 		chckbxBorder.setBounds(6, 109, 97, 23);
 		panel_3.add(chckbxBorder);
 		
 		JCheckBox chckbxSmooth = new JCheckBox("Smooth (bileteral filter)");
+		chckbxSmooth.addItemListener(guiCtrl);
+		chckbxSmooth.setName("flSmooth");
+		chckbxSmooth.setToolTipText("Removes noise from the picture while maintaining sharp edges.");
 		chckbxSmooth.setBounds(6, 83, 148, 23);
 		panel_3.add(chckbxSmooth);
 		
-		JCheckBox chckbxContrast = new JCheckBox("Increase contrast");
-		chckbxContrast.setBounds(6, 161, 128, 23);
-		panel_3.add(chckbxContrast);
-		
 		JCheckBox chckbxSWT = new JCheckBox("Stroke width transformation");
+		chckbxSWT.addItemListener(guiCtrl);
+		chckbxSWT.setName("flSWT");
+		chckbxSWT.setToolTipText("Very advanced technique, look it up on google. Does not work well with images containing complex structures.");
 		chckbxSWT.setBounds(6, 135, 166, 23);
 		panel_3.add(chckbxSWT);
+		
+		JCheckBox chckbxContrast = new JCheckBox("Increase contrast");
+		chckbxContrast.addItemListener(guiCtrl);
+		chckbxContrast.setName("flContrast");
+		chckbxContrast.setToolTipText("Can sometimes help in specific cases. Just try it out and pay attention to the output.");
+		chckbxContrast.setBounds(6, 161, 128, 23);
+		panel_3.add(chckbxContrast);
 		
 		JLabel lblPreprocessingFilters = new JLabel("Pre-processing filters");
 		lblPreprocessingFilters.setFont(new Font("Tahoma", Font.BOLD, 12));

@@ -41,9 +41,21 @@ public class GUIModel {
 		config.curConfig.logLevel = newLogLvl;
 	}
 
-	public void updateDebuggingActive() { config.curConfig.debug = !config.curConfig.debug; }
+	public void updateDebuggingActive(boolean active) { config.curConfig.debug = active; }
 
 	public void updateCritConf(int lvl) { config.curConfig.critConf = lvl; }
+
+	public void updateFlGrayscale(boolean active) { config.curConfig.flGrayscale = active; }
+
+	public void updateFlBinary(boolean active) { config.curConfig.flBinary = active; }
+
+	public void updateFlSmooth(boolean active) { config.curConfig.flSmooth = active; }
+
+	public void updateFlBorder(boolean active) { config.curConfig.flBorder = active; }
+
+	public void updateFlSWT(boolean active) { config.curConfig.flSWT = active; }
+
+	public void updateFlContrast(boolean active) { config.curConfig.flContrast = active; }
 
 	public void startScanning(String path) {
 		if(new File(path).exists()) {
@@ -54,6 +66,6 @@ public class GUIModel {
 		else
 			logger.log(Logger.LVL_ERROR, "The selected directory does not seem to exist.");
 	}
-	
+
 	public Config getConfig() { return config; }
 }

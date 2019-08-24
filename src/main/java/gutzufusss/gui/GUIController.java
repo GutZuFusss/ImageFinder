@@ -52,7 +52,19 @@ public class GUIController implements ActionListener, ItemListener, ChangeListen
 		if(e.getSource().toString().contains("loggingLevel") && e.getStateChange() == ItemEvent.SELECTED)
 			model.updateLogLevel(e.getItem().toString());
 		else if(e.getSource().toString().contains("debuggingActive"))
-			model.updateDebuggingActive();
+			model.updateDebuggingActive(e.getStateChange() == 1);
+		else if(e.getSource().toString().contains("flGrayscale"))
+			model.updateFlGrayscale(e.getStateChange() == 1);
+		else if(e.getSource().toString().contains("flBinary"))
+			model.updateFlBinary(e.getStateChange() == 1);
+		else if(e.getSource().toString().contains("flSmooth"))
+			model.updateFlSmooth(e.getStateChange() == 1);
+		else if(e.getSource().toString().contains("flBorder"))
+			model.updateFlBorder(e.getStateChange() == 1);
+		else if(e.getSource().toString().contains("flSWT"))
+			model.updateFlSWT(e.getStateChange() == 1);
+		else if(e.getSource().toString().contains("flContrast"))
+			model.updateFlContrast(e.getStateChange() == 1);
 	}
 
 	@Override
