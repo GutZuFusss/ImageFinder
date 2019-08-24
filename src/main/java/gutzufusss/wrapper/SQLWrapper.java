@@ -28,7 +28,7 @@ public abstract class SQLWrapper {
 			logger.log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
 
-		try {
+		/*try {
 			resultOfQuery.last();
 			int numResults = resultOfQuery.getRow();
 			resultOfQuery.beforeFirst();
@@ -36,7 +36,7 @@ public abstract class SQLWrapper {
 			logger.log(Logger.LVL_DEBUG, "Results: " + numResults);
 		} catch (SQLException e) {
 			logger.log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
-		}
+		}*/
 
 		return resultOfQuery;
 	}
@@ -98,7 +98,7 @@ public abstract class SQLWrapper {
 	}
 
 	protected final Statement createStatement(Connection connection) throws SQLException {
-		Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		Statement statement = connection.createStatement();
 		statement.setQueryTimeout(QUERY_TIMEOUT);
 
 		logger.log(Logger.LVL_DEBUG, "Created statement, query timeout: " + statement.getQueryTimeout());

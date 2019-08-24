@@ -36,10 +36,10 @@ public class Config {
 	
 	public void setDefaultConf () {
 		defConfig.configName	= "default_config";
-		defConfig.debug			= false;
-		defConfig.logLevel		= Logger.LVL_INFO;
+		defConfig.debug			= /*false*/true;
+		defConfig.logLevel		= Logger./*LVL_INFO*/LVL_DEBUG;
 		defConfig.critConf		= 55;
-		
+
 		defConfig.flGrayscale	= true;
 		defConfig.flBinary		= false;
 		defConfig.flSmooth		= true;
