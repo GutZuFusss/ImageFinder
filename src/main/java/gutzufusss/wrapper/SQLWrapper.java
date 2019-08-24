@@ -22,8 +22,8 @@ public abstract class SQLWrapper {
 		createConAndStateIfNeeded();
 		ResultSet resultOfQuery = null;
 		try {
+			logger.log(Logger.LVL_DEBUG, "Executing querry: " + query);
 			resultOfQuery = statement.executeQuery(query);
-			logger.log(Logger.LVL_DEBUG, "Executed querry: " + query);
 		} catch(SQLException e) {
 			logger.log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
@@ -40,8 +40,8 @@ public abstract class SQLWrapper {
 	public final void execSQL(String sql) {
 		createConAndStateIfNeeded();
 		try {
+			logger.log(Logger.LVL_DEBUG, "Executing sql: " + sql);
 			statement.executeUpdate(sql);
-			logger.log(Logger.LVL_DEBUG, "Executed sql: " + sql);
 		} catch(SQLException e) {
 			logger.log(Logger.LVL_ERROR, "SQL-Error: " + e.getErrorCode() + " - " + e.getMessage());
 		}
