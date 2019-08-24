@@ -22,6 +22,7 @@ public class Main {
 		imgManipulator = new ImageManipulation(logger);
 
 		SQLWrapper.setLogger(logger);
+		logger.setConfig(config);
 
 		// database & table checks
 		try {

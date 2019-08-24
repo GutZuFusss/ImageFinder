@@ -22,6 +22,7 @@ public class Logger {
 
 	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
 	private File logFile;
+	private Config config;
 
 
 	public Logger() {
@@ -30,7 +31,7 @@ public class Logger {
 	}
 
 	public void log(int lvl, String msg) {
-		if(/*!DEBUG_MODE &&*/ lvl == LVL_DEBUG)
+		if(config != null && lvl < config.curConf.logLevel)
 			return;
 
 		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack
@@ -100,4 +101,6 @@ public class Logger {
 			}
 		}
 	}
+
+	public void setConfig(Config config) { this.config = config; }
 }
