@@ -20,6 +20,8 @@ public class GUIModel {
 		this.logger = logger;
 		controller = m;
 		guiCtrl = new GUIController(logger, this);
+		
+		logger.setGUIModel(this);
 	}
 
 	public void userBrowsePath() {
@@ -65,6 +67,10 @@ public class GUIModel {
 		}
 		else
 			logger.log(Logger.LVL_ERROR, "The selected directory does not seem to exist.");
+	}
+	
+	public void logMessageAdded() {
+		guiCtrl.handleAutoScroll();
 	}
 
 	public Config getConfig() { return config; }

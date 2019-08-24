@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JList;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -72,6 +73,8 @@ public class GUIController implements ActionListener, ItemListener, ChangeListen
 		if(e.getSource().toString().contains("critConf"))
 			model.updateCritConf((int)((JSpinner)e.getSource()).getValue());
 	}
+
+	public void handleAutoScroll() { view.listLog.ensureIndexIsVisible(view.listLog.getModel().getSize() - 1); }
 
 	public void setDirPath(String p) { view.dirPathTF.setText(p); }
 

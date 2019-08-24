@@ -11,6 +11,8 @@ import javax.swing.DefaultListModel;
 
 import org.apache.commons.io.FileUtils;
 
+import gutzufusss.gui.GUIModel;
+
 public class Logger {
 	public static final int LVL_OFF = 0;
 	public static final int LVL_FATAL = 1;
@@ -24,6 +26,7 @@ public class Logger {
 	private final String LOG_PATH = "logs/log_" + getTimestamp(true) + ".log";
 	private File logFile;
 	private Config config;
+	private GUIModel guiModel;
 
 
 	public Logger() {
@@ -54,6 +57,7 @@ public class Logger {
 
 		System.out.println(logMsg);
 		guiLogStream.addElement(logMsg);
+		guiModel.logMessageAdded();
 	}
 	
 	public static String getTimestamp(boolean logger) {
@@ -108,4 +112,6 @@ public class Logger {
 	}
 
 	public void setConfig(Config config) { this.config = config; }
+	
+	public void setGUIModel(GUIModel guiModel) { this.guiModel = guiModel; }
 }

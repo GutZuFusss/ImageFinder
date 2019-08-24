@@ -29,6 +29,8 @@ import javax.swing.JRadioButton;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -39,6 +41,7 @@ import javax.swing.JCheckBox;
 @SuppressWarnings("serial")
 public class GUIView extends JFrame {
 	public JTextField dirPathTF;
+	public JList<String> listLog;
 	
 	private Logger logger;
 	private GUIController guiCtrl;
@@ -91,20 +94,13 @@ public class GUIView extends JFrame {
 		dirPathTF.setText(System.getProperty("user.home") + "\\Pictures"); // preset the tf to something nice
 		dirPathTF.setColumns(10);
 
-		JList<String> list = new JList<String>(logger.guiLogStream);
-		list.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-		list.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		JScrollPane scrollPane = new JScrollPane(list);
+		listLog = new JList<String>(logger.guiLogStream);
+		listLog.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		listLog.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		JScrollPane scrollPane = new JScrollPane(listLog);
 		scrollPane.setBounds(9, 260, 955, 230);
 		getContentPane().add(scrollPane);
-		
-		// auto scroll code, works in loop
-		/*scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  
-	        public void adjustmentValueChanged(AdjustmentEvent e) {  
-	            e.getAdjustable().setValue(e.getAdjustable().getValue());  
-	        }
-	    });*/
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 396, 98);
 		panel.setBackground(Color.BLACK);
