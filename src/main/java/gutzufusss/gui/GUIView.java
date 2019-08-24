@@ -139,7 +139,7 @@ public class GUIView extends JFrame {
 		for(int i = 0; i <= Logger.LVL_DEBUG; i++)
 			logLvls[i] = Integer.toString(i) + ":" + logger.getErrLvlString(i);
 		comboBox.setModel(new DefaultComboBoxModel(logLvls));
-		comboBox.setSelectedIndex(guiCtrl.getConfig().curConf.logLevel);
+		comboBox.setSelectedIndex(guiCtrl.getConfig().curConfig.logLevel);
 		comboBox.setName("loggingLevel");
 		comboBox.setToolTipText("The lower the number the less logging messages you will get.");
 		comboBox.setBounds(112, 11, 73, 20);
@@ -152,7 +152,7 @@ public class GUIView extends JFrame {
 		
 		JRadioButton rdbtnOn = new JRadioButton("Activated");
 		rdbtnOn.addItemListener(guiCtrl);
-		rdbtnOn.setSelected(guiCtrl.getConfig().curConf.debug);
+		rdbtnOn.setSelected(guiCtrl.getConfig().curConfig.debug);
 		rdbtnOn.setName("debuggingActive");
 		rdbtnOn.setBounds(107, 40, 78, 23);
 		panel_1.add(rdbtnOn);
@@ -163,7 +163,7 @@ public class GUIView extends JFrame {
 		panel_1.add(lblCritConfidence);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(guiCtrl.getConfig().curConf.critConf, 0, 100, 1));
+		spinner.setModel(new SpinnerNumberModel(guiCtrl.getConfig().curConfig.critConf, 0, 100, 1));
 		spinner.setName("critConf");
 		spinner.addChangeListener(guiCtrl);
 		spinner.setToolTipText("You will get a warning if the confidence level of an image is below this value. 100 is maximum and 0 minimum.");

@@ -10,8 +10,8 @@ public class Config {
 		public int			logLevel;
 		public int			critConf;
 	}
-	public ConfigVariables curConf = new ConfigVariables(); // live vars
-	public ConfigVariables defConf = new ConfigVariables(); // default vars
+	public ConfigVariables curConfig = new ConfigVariables(); // live vars
+	public ConfigVariables defConfig = new ConfigVariables(); // default vars
 	/* ################ config variables ################ */
 	
 	private Logger logger;
@@ -28,10 +28,10 @@ public class Config {
 	public ConfigDBController getConfigDB() { return configDB; }
 	
 	public void setDefaultConf (){
-		defConf.configName		= "default_config";
-		defConf.debug			= false;
-		defConf.logLevel		= Logger.LVL_INFO;
-		defConf.critConf		= 55;
+		defConfig.configName		= "default_config";
+		defConfig.debug			= false;
+		defConfig.logLevel		= Logger.LVL_INFO;
+		defConfig.critConf		= 55;
 	}
 
 	private void initConfigVars() {
@@ -40,6 +40,6 @@ public class Config {
 
 		logger.log(Logger.LVL_WARN, "Could not load configuration, using standard values.");
 
-		curConf = defConf;
+		curConfig = defConfig;
 	}
 }

@@ -58,7 +58,7 @@ public class GUIController implements ActionListener, ItemListener, ChangeListen
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		if(e.getSource().toString().contains("critConf"))
-			model.updateCritConf((JSpinner)e.getSource()).getValue());
+			model.updateCritConf((int)((JSpinner)e.getSource()).getValue());
 	}
 
 	public void setDirPath(String p) { view.dirPathTF.setText(p); }

@@ -38,12 +38,13 @@ public class GUIModel {
 
 	public void updateLogLevel(String selectedItem) {
 		int newLogLvl = Integer.parseInt(selectedItem.split(":")[0]);
-		config.curConf.logLevel = newLogLvl;
+		config.curConfig.logLevel = newLogLvl;
 	}
 
-	public void updateDebuggingActive() { config.curConf.debug = !config.curConf.debug; }
+	public void updateDebuggingActive() { config.curConfig.debug = !config.curConfig.debug; }
 
-	public void updateCritConf(int lvl) { config.curConf.critConf = lvl; }
+	public void updateCritConf(int lvl) { config.curConfig.critConf = lvl; }
+
 	public void startScanning(String path) {
 		if(new File(path).exists()) {
 			OCRWrapper myRunnable = new OCRWrapper(logger, config, controller, controller.getImgDB(), path);

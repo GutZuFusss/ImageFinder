@@ -36,9 +36,9 @@ public class ConfigDBController extends SQLWrapper {
 		// insert a default entry
 		execSQL("INSERT INTO " + TABLE_CONF + "(config_name, debug, log_lvl, crit_conf) VALUES (" +
 				"'" +	"default_config"				+ "', " +
-						config.defConf.debug			+ ", " +
-						config.defConf.logLevel			+ ", " +
-						config.defConf.critConf			+ ");");
+						config.defConfig.debug			+ ", " +
+						config.defConfig.logLevel			+ ", " +
+						config.defConfig.critConf			+ ");");
 		
 
 		logger.log(Logger.LVL_INFO, "SQL table '" + TABLE_CONF + "' was generated.");

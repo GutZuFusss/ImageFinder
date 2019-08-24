@@ -116,9 +116,9 @@ public class OCRWrapper implements Runnable {
 					"'" + result						+ "', " +
 						  conf							+ ");");
 
-		if(conf < config.curConf.critConf)
+		if(conf < config.curConfig.critConf)
 			logger.log(Logger.LVL_WARN, "Processed '" + imgPath + 
-					"'. However, the confidence score was lower than " + config.curConf.critConf + " (" + conf + ").");
+					"'. However, the confidence score was lower than " + config.curConfig.critConf + " (" + conf + ").");
 
 		logger.log(Logger.LVL_INFO, "'" + imgPath + "' done, confidence was " + conf + ".");
 		logger.log(Logger.LVL_INFO, "Result: " + result);

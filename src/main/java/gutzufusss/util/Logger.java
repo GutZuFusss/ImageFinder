@@ -32,7 +32,7 @@ public class Logger {
 	}
 
 	public void log(int lvl, String msg) {
-		if(config != null && lvl > config.curConf.logLevel)
+		if(config != null && lvl > config.curConfig.logLevel)
 			return;
 
 		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack
