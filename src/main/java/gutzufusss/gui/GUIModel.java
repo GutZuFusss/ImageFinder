@@ -1,5 +1,7 @@
 package gutzufusss.gui;
 
+import java.io.File;
+
 import javax.swing.JFileChooser;
 
 import gutzufusss.Main;
@@ -36,5 +38,12 @@ public class GUIModel {
 	public void updateLogLevel(String selectedItem) {
 		int newLogLvl = Integer.parseInt(selectedItem.split(":")[0]);
 		config.curConf.logLevel = newLogLvl;
+	}
+	
+	public void startScanning(String path) {
+		if(new File(path).exists())
+			controller.getOCR().scanDirectory(path);
+		else
+			logger.log(Logger.LVL_ERROR, "The selected directory does not seem to exist.");
 	}
 }

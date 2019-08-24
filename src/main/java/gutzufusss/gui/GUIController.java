@@ -29,9 +29,10 @@ public class GUIController implements ActionListener, ItemListener {
 		case "Browse...":
 			model.userBrowsePath();
 			break;
-		/*case "1":
-			return "WARN ";
-		case LVL_ERROR:
+		case "Start scanning":
+			model.startScanning(view.dirPathTF.getText());
+			break;
+		/*case LVL_ERROR:
 			break;*/
 		}
 	}

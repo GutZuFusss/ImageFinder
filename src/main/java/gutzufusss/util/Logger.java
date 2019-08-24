@@ -12,11 +12,11 @@ import javax.swing.DefaultListModel;
 import org.apache.commons.io.FileUtils;
 
 public class Logger {
-	public static final int LVL_DEBUG = 1;
-	public static final int LVL_FATAL = 2;
-	public static final int LVL_ERROR = 4;
-	public static final int LVL_WARN = 8;
-	public static final int LVL_INFO = 16;
+	public static final int LVL_FATAL = 1;
+	public static final int LVL_ERROR = 2;
+	public static final int LVL_WARN = 4;
+	public static final int LVL_INFO = 8;
+	public static final int LVL_DEBUG = 16;
 	
 	public DefaultListModel<String> guiLogStream = new DefaultListModel<String>(); // used in GUIView to update JList
 
@@ -31,7 +31,7 @@ public class Logger {
 	}
 
 	public void log(int lvl, String msg) {
-		if(config != null && lvl < config.curConf.logLevel)
+		if(config != null && lvl > config.curConf.logLevel)
 			return;
 
 		String calledFrom = Thread.currentThread().getStackTrace()[2].getClassName(); // travel back 2 calls on the call stack

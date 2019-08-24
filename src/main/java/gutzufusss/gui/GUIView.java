@@ -70,6 +70,7 @@ public class GUIView extends JFrame {
 		getContentPane().add(btnBrowse);
 
 		JButton btnStartScanning = new JButton("Start scanning");
+		btnStartScanning.addActionListener(guiCtrl);
 		btnStartScanning.setBounds(9, 62, 145, 25);
 		btnStartScanning.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getContentPane().add(btnStartScanning);
@@ -133,6 +134,7 @@ public class GUIView extends JFrame {
 		comboBox.addItemListener(guiCtrl);
 		comboBox.setMaximumRowCount(5);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"16:INFO", "8:WARN", "4:ERROR", "2:FATAL", "1:DEBUG"}));
+		//comboBox.setSelectedIndex(anIndex);
 		comboBox.setName("loggingLevel");
 		comboBox.setToolTipText("The lower the number the less logging messages you will get.");
 		comboBox.setBounds(79, 8, 73, 20);
