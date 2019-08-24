@@ -2,6 +2,7 @@ package gutzufusss.wrapper;
 
 import java.awt.image.*;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -22,6 +23,8 @@ public class OCRWrapper {
 	private Logger logger;
 	private Main controller;
 	private ImageDBController imgDB;
+	
+	private String[] allowedExtensions = {"jpg", "png", "tiff", "bmp", "pnm", "gif", "ps", "pdf", "webp"};
 	
 	public OCRWrapper(Logger logger, Main controller, ImageDBController imgDB) {
 		this.logger = logger;
@@ -51,6 +54,8 @@ public class OCRWrapper {
 	public void scanDirectory(String path) {
 		String dataPath = "tessdata"; // these two could be parameterized in the future for different directories
 		String languages = "eng+deu+ita+spa";
+		
+		logger.log(Logger.LVL_INFO, "Starting scanning process... Languages: " + languages + ", data path: " + dataPath);
 
 		// initialize tesseract instances
 		TessBaseAPI handle = TessAPI1.TessBaseAPICreate();
@@ -58,14 +63,13 @@ public class OCRWrapper {
 		setUpAPIParameters(handle);
 
 		// loop over all files in directory
-		File dir = new File(path);
-		File[] directoryListing = dir.listFiles();
-		if(directoryListing != null) {
+		File[] directoryListing = getImagesInDir(new File(path));
+		if(directoryListing != null && directoryListing.length != 0) {
 			for(File child : directoryListing)
 				getTextFromImg(child.getAbsolutePath(), handle);
 		}
 		else {
-			logger.log(Logger.LVL_ERROR, "I/O error: The directory seems to be empty!");
+			logger.log(Logger.LVL_ERROR, "I/O error: The directory seems to contain no image files!");
 		}
 		
 		logger.log(Logger.LVL_INFO, "Done scanning the directory '" + path + "'.");
@@ -119,5 +123,19 @@ public class OCRWrapper {
 		logger.log(Logger.LVL_INFO, "Result: " + result);
 
 		return result;
+	}
+	
+	private File[] getImagesInDir(File dir) {
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+		    	for(String ext : allowedExtensions)
+		    		if(name.endsWith(ext))
+		    			return true;
+		    	return false;
+		    }
+		};
+
+		return dir.listFiles(filter);
 	}
 }
