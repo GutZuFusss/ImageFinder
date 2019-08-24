@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 import gutzufusss.Main;
 import gutzufusss.util.Config;
 import gutzufusss.util.Logger;
+import gutzufusss.wrapper.OCRWrapper;
 
 public class GUIModel {
 	private Logger logger;
@@ -39,10 +40,16 @@ public class GUIModel {
 		int newLogLvl = Integer.parseInt(selectedItem.split(":")[0]);
 		config.curConf.logLevel = newLogLvl;
 	}
-	
+
+	public void updateDebuggingActive() { config.curConf.debug = !config.curConf.debug; }
+
+
 	public void startScanning(String path) {
-		if(new File(path).exists())
-			controller.getOCR().scanDirectory(path);
+		if(new File(path).exists()) {
+			OCRWrapper myRunnable = new OCRWrapper(logger, controller, controller.getImgDB(), path);
+	        Thread t = new Thread(myRunnable);
+	        t.start();
+		}
 		else
 			logger.log(Logger.LVL_ERROR, "The selected directory does not seem to exist.");
 	}

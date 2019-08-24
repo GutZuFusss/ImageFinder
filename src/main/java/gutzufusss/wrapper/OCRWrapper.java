@@ -15,7 +15,7 @@ import net.sourceforge.lept4j.util.LeptUtils;
 import net.sourceforge.tess4j.*;
 import net.sourceforge.tess4j.ITessAPI.TessBaseAPI;
 
-public class OCRWrapper {
+public class OCRWrapper implements Runnable {
 	private final String WHITELIST_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "ƒ÷‹‰ˆ¸ﬂ" + "1234567890" + " !?.,-+#*/\\\"$Ä()[]{}<>=%ß";
 	
 	private final int CRITICAL_CONF = 55;
@@ -23,13 +23,15 @@ public class OCRWrapper {
 	private Logger logger;
 	private Main controller;
 	private ImageDBController imgDB;
+	private String scanPath;
 	
 	private String[] allowedExtensions = {"jpg", "png", "tiff", "bmp", "pnm", "gif", "ps", "pdf", "webp"};
 	
-	public OCRWrapper(Logger logger, Main controller, ImageDBController imgDB) {
+	public OCRWrapper(Logger logger, Main controller, ImageDBController imgDB, String scanPath) {
 		this.logger = logger;
 		this.controller = controller;
 		this.imgDB = imgDB;
+		this.scanPath = scanPath;
 	}
 
 	private BufferedImage openImg(String path) {
@@ -137,5 +139,11 @@ public class OCRWrapper {
 		};
 
 		return dir.listFiles(filter);
+	}
+
+	@Override
+	public void run() {
+		logger.log(Logger.LVL_INFO, "Image scanning thread started.")
+		scanDirectory(scanPath);
 	}
 }

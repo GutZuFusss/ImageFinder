@@ -18,7 +18,6 @@ public class Main {
 		logger = new Logger();
 		config = new Config(logger);
 		imgDB = new ImageDBController();
-		ocrWrapper = new OCRWrapper(logger, this, imgDB);
 		imgManipulator = new ImageManipulation(logger);
 
 		SQLWrapper.setLogger(logger);
@@ -41,6 +40,8 @@ public class Main {
 	}
 
 	public OCRWrapper getOCR() { return ocrWrapper; }
+
+	public ImageDBController getImgDB() { return imgDB; }
 
 	public ImageManipulation getIMGManipulator() { return imgManipulator; }
 

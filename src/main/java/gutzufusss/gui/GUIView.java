@@ -149,6 +149,9 @@ public class GUIView extends JFrame {
 		panel_1.add(lblDebug);
 		
 		JRadioButton rdbtnOn = new JRadioButton("Activated");
+		rdbtnOn.addItemListener(guiCtrl);
+		rdbtnOn.setEnabled(guiCtrl.getConfig().curConf.debug);
+		rdbtnOn.setName("debuggingActive");
 		rdbtnOn.setBounds(74, 37, 78, 23);
 		panel_1.add(rdbtnOn);
 		
@@ -162,7 +165,6 @@ public class GUIView extends JFrame {
 		lblCertainItemsYou.setForeground(new Color(255, 255, 255));
 		lblCertainItemsYou.setBounds(9, 111, 287, 14);
 		getContentPane().add(lblCertainItemsYou);
-
 	}
 
 	private void setUpLookAndFeel() {
