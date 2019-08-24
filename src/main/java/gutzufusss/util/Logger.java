@@ -40,6 +40,8 @@ public class Logger {
 		if(numDots != 0)
 			calledFrom = calledFrom.split("\\.")[numDots]; // don't display the package path to the class... noone cares
 		calledFrom += "::" + Thread.currentThread().getStackTrace()[2].getMethodName();
+		if(config.curConfig.debug)
+			calledFrom += " (l. " + Thread.currentThread().getStackTrace()[2].getLineNumber() + ")";
 
 		String logMsg = "[" + getErrLvlString(lvl) + "]" + "[" + getTimestamp() + "]:" + "[" + calledFrom + "]>> " + msg; // prepare the message
 
