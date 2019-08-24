@@ -143,7 +143,7 @@ public class OCRWrapper implements Runnable {
 
 	@Override
 	public void run() {
-		logger.log(Logger.LVL_INFO, "Image scanning thread started.")
+		logger.log(Logger.LVL_INFO, "Image scanning thread started.");
 		scanDirectory(scanPath);
 	}
 }

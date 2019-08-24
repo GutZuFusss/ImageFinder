@@ -43,7 +43,7 @@ public class GUIModel {
 
 	public void updateDebuggingActive() { config.curConf.debug = !config.curConf.debug; }
 
-
+	public void updateCritConf(int lvl) { config.curConf.critConf = lvl; }
 	public void startScanning(String path) {
 		if(new File(path).exists()) {
 			OCRWrapper myRunnable = new OCRWrapper(logger, controller, controller.getImgDB(), path);

@@ -32,6 +32,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class GUIView extends JFrame {
@@ -140,7 +142,7 @@ public class GUIView extends JFrame {
 		comboBox.setSelectedIndex(guiCtrl.getConfig().curConf.logLevel);
 		comboBox.setName("loggingLevel");
 		comboBox.setToolTipText("The lower the number the less logging messages you will get.");
-		comboBox.setBounds(79, 8, 73, 20);
+		comboBox.setBounds(112, 11, 73, 20);
 		panel_1.add(comboBox);
 		
 		JLabel lblDebug = new JLabel("Debugging:");
@@ -150,10 +152,23 @@ public class GUIView extends JFrame {
 		
 		JRadioButton rdbtnOn = new JRadioButton("Activated");
 		rdbtnOn.addItemListener(guiCtrl);
-		rdbtnOn.setEnabled(guiCtrl.getConfig().curConf.debug);
+		rdbtnOn.setSelected(guiCtrl.getConfig().curConf.debug);
 		rdbtnOn.setName("debuggingActive");
-		rdbtnOn.setBounds(74, 37, 78, 23);
+		rdbtnOn.setBounds(107, 40, 78, 23);
 		panel_1.add(rdbtnOn);
+		
+		JLabel lblCritConfidence = new JLabel("Crit. confidence:");
+		lblCritConfidence.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCritConfidence.setBounds(4, 70, 100, 14);
+		panel_1.add(lblCritConfidence);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(guiCtrl.getConfig().curConf.critConf, 0, 100, 1));
+		spinner.setName("critConf");
+		spinner.addChangeListener(guiCtrl);
+		spinner.setToolTipText("You will get a warning if the confidence level of an image is below this value. 100 is maximum and 0 minimum.");
+		spinner.setBounds(112, 67, 73, 20);
+		panel_1.add(spinner);
 		
 		JLabel lblNewLabel = new JLabel("Hint: Some things have tooltips. It is sometimes worth it to hover over");
 		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -39,8 +39,7 @@ public class ImageManipulation {
 		return pix;
 	}
 
-	private Mat imgToMat(BufferedImage img) { // kinda hacky, but i can't find another way... should be efficient
-												// however
+	private Mat imgToMat(BufferedImage img) { // kinda hacky, but i can't find another way... should be efficient however
 		int type = img.getType() == BufferedImage.TYPE_3BYTE_BGR ? CvType.CV_8UC3 : CvType.CV_8UC1;
 		Mat mat = new Mat(img.getHeight(), img.getWidth(), type);
 		byte[] data = ((DataBufferByte)img.getRaster().getDataBuffer()).getData();
