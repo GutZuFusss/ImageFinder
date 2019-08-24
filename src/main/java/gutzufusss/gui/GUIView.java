@@ -107,7 +107,7 @@ public class GUIView extends JFrame {
 		getContentPane().add(panel);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(1, 242, 973, 260);
+		panel_2.setBounds(0, 242, 973, 260);
 		panel_2.setToolTipText("");
 		panel_2.setForeground(Color.BLACK);
 		panel_2.setName("Logger");
@@ -235,6 +235,19 @@ public class GUIView extends JFrame {
 		lblCertainItemsYou.setForeground(new Color(255, 255, 255));
 		lblCertainItemsYou.setBounds(9, 111, 287, 14);
 		getContentPane().add(lblCertainItemsYou);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(Color.YELLOW);
+		panel_4.setBounds(0, 222, 95, 25);
+		getContentPane().add(panel_4);
+		panel_4.setLayout(null);
+		
+		JCheckBox chckbxAutoscroll = new JCheckBox("Auto-scroll");
+		chckbxAutoscroll.setName("autoScroll");
+		chckbxAutoscroll.addItemListener(guiCtrl);
+		chckbxAutoscroll.setSelected(guiCtrl.getConfig().curConfig.logAutoScroll);
+		chckbxAutoscroll.setBounds(0, 4, 89, 16);
+		panel_4.add(chckbxAutoscroll);
 	}
 
 	private void setUpLookAndFeel() {

@@ -57,7 +57,8 @@ public class Logger {
 
 		System.out.println(logMsg);
 		guiLogStream.addElement(logMsg);
-		guiModel.logMessageAdded();
+		if(guiModel != null)
+			guiModel.logMessageAdded();
 	}
 	
 	public static String getTimestamp(boolean logger) {
